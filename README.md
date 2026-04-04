@@ -308,14 +308,10 @@ kill -9 <PID>
 - [ ] Real-time collaboration (WebSockets)
 - [ ] Mobile app (React Native)
 
-## 📄 License
-
-MIT License — see [LICENSE](LICENSE) for details.
-
 ## 👨‍💻 Author
 
 **Sagnik**  
-GitHub: [@YOUR_USERNAME](https://github.com/sagnik0606-ux)  
+GitHub: [@sagnik0606-ux](https://github.com/sagnik0606-ux)  
 Email: basu.sagnik5@gmail.com
 
 ## 🙋 Support
