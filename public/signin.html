@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FormFlow | Sign in</title>
-  <meta name="description" content="Sign in to FormFlow - reimagine forms for education.">
+  <meta name="description" content="Sign in to FormFlow - reimagined forms for education.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -19,7 +19,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem 1rem;
+      padding: 1.25rem 1rem;
       font-family: 'Inter', sans-serif;
       overflow: hidden;
       color: white;
@@ -31,20 +31,19 @@
       inset: 0;
       z-index: 0;
       background-image:
-        radial-gradient(ellipse 70% 55% at 10% 15%, rgba(42, 18, 95, 0.5) 0%, transparent 70%),
+        radial-gradient(ellipse 70% 55% at 10% 15%, rgba(42, 18, 95, 0.45) 0%, transparent 70%),
         radial-gradient(ellipse 60% 50% at 90% 85%, rgba(12, 58, 68, 0.45) 0%, transparent 70%),
-        radial-gradient(ellipse 45% 40% at 75% 10%, rgba(22, 18, 80, 0.45) 0%, transparent 65%);
+        radial-gradient(ellipse 45% 40% at 75% 10%, rgba(22, 18, 80, 0.4) 0%, transparent 65%);
     }
 
     .ff-dots {
       position: fixed;
       inset: 0;
       z-index: 1;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.2) 1.2px, transparent 1.2px);
-      background-size: 30px 30px;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.18) 1.2px, transparent 1.2px);
+      background-size: 28px 28px;
     }
 
-    /* Subtle Grain Layer */
     body::before {
       content: "";
       position: fixed;
@@ -61,91 +60,91 @@
       position: relative;
       z-index: 10;
       width: 100%;
-      max-width: 415px;
+      max-width: 410px;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 24px;
-      padding: 2.5rem 2.25rem 2.25rem;
+      border-radius: 28px;
+      padding: 2rem 2.25rem 1.85rem;
       backdrop-filter: blur(25px) saturate(160%);
       -webkit-backdrop-filter: blur(25px) saturate(160%);
       box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.9);
-      animation: emerge 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: emerge 0.75s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     @keyframes emerge {
-        from { opacity: 0; transform: translateY(15px); }
+        from { opacity: 0; transform: translateY(12px); }
         to { opacity: 1; transform: translateY(0); }
     }
 
     /* Branding */
-    .ff-logo-group {
+    .ff-header {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 1.75rem;
+        margin-bottom: 1.5rem;
     }
 
-    .ff-wave-icon {
-        width: 52px;
-        height: 52px;
+    .ff-logo-wave {
+        width: 48px;
+        height: 48px;
         background: linear-gradient(135deg, #00d4ff, #7b6ef6);
         mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 13c3.33-3.33 4.67-3.33 8 0s4.67 3.33 8 0M3 17c3.33-3.33 4.67-3.33 8 0s4.67 3.33 8 0M3 9c3.33-3.33 4.67-3.33 8 0s4.67 3.33 8 0' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") no-repeat center;
         -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 13c3.33-3.33 4.67-3.33 8 0s4.67 3.33 8 0M3 17c3.33-3.33 4.67-3.33 8 0s4.67 3.33 8 0M3 9c3.33-3.33 4.67-3.33 8 0s4.67 3.33 8 0' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") no-repeat center;
-        filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.6));
-        margin-bottom: 0.6rem;
+        filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.5));
+        margin-bottom: 0.5rem;
     }
 
-    .ff-title-text {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2rem;
-      font-weight: 700;
+    .ff-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.25rem;
+      font-weight: 800;
       text-align: center;
-      background: linear-gradient(135deg, #00d4ff 0%, #7b6ef6 100%);
+      background: linear-gradient(135deg, #00d4ff 10%, #7b6ef6 90%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      letter-spacing: 0.12em;
+      letter-spacing: -0.02em; /* Tighter letter spacing for 'Outfit' looks premium */
       margin: 0;
     }
 
-    .ff-tagline-text {
+    .ff-subtitle {
       text-align: center;
-      font-size: 0.78rem;
-      color: rgba(255, 255, 255, 0.35);
-      font-style: italic;
-      margin-top: 0.3rem;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.3);
+      font-weight: 500;
+      margin-top: 0.2rem;
     }
 
-    /* Mode Switcher */
-    .ff-switcher {
+    /* Switcher */
+    .ff-nav {
       display: flex;
       background: rgba(0, 0, 0, 0.4);
       border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 12px;
       padding: 4px;
-      margin-bottom: 1.75rem;
+      margin-bottom: 1.5rem;
       position: relative;
     }
 
-    .ff-switch-tab {
+    .ff-nav-tab {
       flex: 1;
-      padding: 9px 0;
+      padding: 10px 0;
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       text-align: center;
       cursor: pointer;
       z-index: 5;
       transition: color 0.3s;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       background: none;
       border: none;
-      color: rgba(255, 255, 255, 0.3);
+      color: rgba(255, 255, 255, 0.25);
     }
 
-    .ff-switch-tab.active { color: white; }
+    .ff-nav-tab.active { color: white; }
 
-    .ff-pill {
+    .ff-nav-pill {
         position: absolute;
         top: 4px;
         left: 4px;
@@ -155,96 +154,100 @@
         border-radius: 9px;
         transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
         z-index: 1;
-        box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        box-shadow: 0 4px 15px rgba(0, 212, 255, 0.25);
     }
 
     /* Form Styles */
-    .ff-input-box { margin-bottom: 1.15rem; width: 100%; }
-    .ff-input-label {
+    .ff-group { margin-bottom: 1rem; width: 100%; }
+    .ff-label-small {
       display: block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.45);
-      margin-bottom: 0.5rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 0.4rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
     }
 
-    .ff-input-control {
+    .ff-input-field {
       width: 100%;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 10px;
+      border-radius: 11px;
       padding: 10px 14px;
       color: white;
       font-size: 0.95rem;
       outline: none;
-      transition: all 0.25s;
+      transition: all 0.2s;
     }
 
-    .ff-input-control::placeholder { color: rgba(255, 255, 255, 0.18); }
-    .ff-input-control:focus { 
-        border-color: rgba(0, 212, 255, 0.5); 
-        background: rgba(255, 255, 255, 0.08);
+    .ff-input-field::placeholder { color: rgba(255, 255, 255, 0.15); }
+    .ff-input-field:focus { 
+        border-color: rgba(0, 212, 255, 0.4); 
+        background: rgba(255, 255, 255, 0.07);
     }
 
-    .ff-row { display: flex; gap: 12px; }
-    .ff-row > div { flex: 1; }
+    .ff-grid { display: flex; gap: 10px; }
+    .ff-grid > div { flex: 1; }
 
-    .ff-select-control {
+    .ff-select-field {
       width: 100%;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 10px;
+      border-radius: 11px;
       padding: 10px 14px;
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255, 255, 255, 0.75);
       font-size: 0.95rem;
       outline: none;
       appearance: none;
       cursor: pointer;
     }
 
-    .ff-primary-btn {
+    /* Primary Button */
+    .ff-button {
       width: 100%;
-      margin-top: 1rem;
+      margin-top: 0.5rem;
       padding: 0.85rem;
       border: none;
       border-radius: 12px;
       background: linear-gradient(135deg, #00c6e0, #6c5ce7);
       color: white;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.2px;
       cursor: pointer;
       transition: all 0.25s;
-      box-shadow: 0 10px 25px rgba(0, 198, 224, 0.3);
+      box-shadow: 0 10px 20px rgba(0, 198, 224, 0.25);
     }
 
-    .ff-primary-btn:hover { 
-        transform: translateY(-2px);
-        box-shadow: 0 12px 30px rgba(0, 198, 224, 0.45);
+    .ff-button:hover { 
+        transform: translateY(-1.5px);
+        box-shadow: 0 12px 25px rgba(0, 198, 224, 0.4);
     }
+    .ff-button:active { transform: translateY(0); }
 
-    #extra-section { transition: all 0.4s; max-height: 0; opacity: 0; overflow: hidden; }
-    #extra-section.active { max-height: 100px; opacity: 1; margin-top: 0.5rem; }
+    /* Extra Info Section */
+    #extra-info { transition: all 0.3s; max-height: 0; opacity: 0; overflow: hidden; }
+    #extra-info.active { max-height: 100px; opacity: 1; margin-top: 0.5rem; }
 
-    .ff-notif-box {
+    .ff-toast {
         position: fixed;
-        bottom: 30px;
-        right: 30px;
-        padding: 16px 24px;
-        border-radius: 14px;
+        bottom: 25px;
+        right: 25px;
+        padding: 14px 22px;
+        border-radius: 12px;
         background: #111118;
-        border-left: 4px solid #00d4ff;
+        border-left: 3px solid #00d4ff;
         color: white;
         font-weight: 600;
         z-index: 1000;
         transform: translateX(200%);
         transition: transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        font-size: 0.9rem;
     }
-    .ff-notif-box.active { transform: translateX(0); }
+    .ff-toast.active { transform: translateX(0); }
   </style>
 </head>
 <body>
@@ -252,114 +255,114 @@
   <div class="ff-dots"></div>
 
   <div class="ff-card">
-    <div class="ff-logo-group">
-        <div class="ff-wave-icon"></div>
-        <h1 class="ff-title-text">FormFlow</h1>
-        <p class="ff-tagline-text">College Forms Reimagined</p>
+    <div class="ff-header">
+        <div class="ff-logo-wave"></div>
+        <h1 class="ff-title">FormFlow</h1>
+        <p class="ff-subtitle">College Forms Reimagined</p>
     </div>
 
-    <div class="ff-switcher">
-      <div class="ff-pill" id="pill"></div>
-      <button class="ff-switch-tab active" id="btn-login" onclick="nav('login')">Sign In</button>
-      <button class="ff-switch-tab" id="btn-signup" onclick="nav('signup')">Sign Up</button>
+    <div class="ff-nav">
+      <div class="ff-nav-pill" id="pill"></div>
+      <button class="ff-nav-tab active" id="tab-login" onclick="tab('login')">Sign In</button>
+      <button class="ff-nav-tab" id="tab-signup" onclick="tab('signup')">Sign Up</button>
     </div>
 
-    <div id="form-container" class="w-full"></div>
+    <div id="root" class="w-full"></div>
   </div>
 
-  <div id="notif" class="ff-notif-box"></div>
+  <div id="toast" class="ff-toast"></div>
 
   <script>
-    let mode = 'login';
+    let currentMode = 'login';
     const pill = document.getElementById('pill');
-    const container = document.getElementById('form-container');
+    const root = document.getElementById('root');
 
-    function nav(target) {
-        if (mode === target) return;
-        mode = target;
+    function tab(target) {
+        if (currentMode === target) return;
+        currentMode = target;
         pill.style.transform = target === 'login' ? 'translateX(0)' : 'translateX(100%)';
-        document.getElementById('btn-login').classList.toggle('active', target === 'login');
-        document.getElementById('btn-signup').classList.toggle('active', target === 'signup');
+        document.getElementById('tab-login').classList.toggle('active', target === 'login');
+        document.getElementById('tab-signup').classList.toggle('active', target === 'signup');
         render();
     }
 
     function render() {
-        if (mode === 'login') {
-            container.innerHTML = `
-                <form onsubmit="handleAuth(event, 'login')">
-                    <div class="ff-input-box">
-                        <label class="ff-input-label">Email Address</label>
-                        <input class="ff-input-control" type="email" name="email" required placeholder="name@college.edu">
+        if (currentMode === 'login') {
+            root.innerHTML = `
+                <form onsubmit="auth(event, 'login')">
+                    <div class="ff-group">
+                        <label class="ff-label-small">Email Address</label>
+                        <input class="ff-input-field" type="email" name="email" required placeholder="name@college.edu">
                     </div>
-                    <div class="ff-input-box">
-                        <label class="ff-input-label">Password</label>
-                        <input class="ff-input-control" type="password" name="password" required placeholder="••••••••">
+                    <div class="ff-group">
+                        <label class="ff-label-small">Password</label>
+                        <input class="ff-input-field" type="password" name="password" required placeholder="••••••••">
                     </div>
-                    <button type="submit" id="mainBtn" class="ff-primary-btn">Sign In</button>
+                    <button type="submit" id="main-btn" class="ff-button">Sign In</button>
                 </form>
             `;
         } else {
-            container.innerHTML = `
-                <form onsubmit="handleAuth(event, 'signup')">
-                    <div class="ff-input-box">
-                        <label class="ff-input-label">Full Name</label>
-                        <input class="ff-input-control" type="text" name="name" required placeholder="Your Name">
+            root.innerHTML = `
+                <form onsubmit="auth(event, 'signup')">
+                    <div class="ff-group">
+                        <label class="ff-label-small">Full Name</label>
+                        <input class="ff-input-field" type="text" name="name" required placeholder="Your Name">
                     </div>
-                    <div class="ff-input-box">
-                        <label class="ff-input-label">Email Address</label>
-                        <input class="ff-input-control" type="email" name="email" required placeholder="id@college.edu">
+                    <div class="ff-group">
+                        <label class="ff-label-small">Email Address</label>
+                        <input class="ff-input-field" type="email" name="email" required placeholder="id@college.edu">
                     </div>
-                    <div class="ff-row">
-                        <div class="ff-input-box">
-                            <label class="ff-input-label">Role</label>
-                            <select class="ff-select-control" name="user_type" required onchange="toggleMeta(this.value)">
+                    <div class="ff-grid">
+                        <div class="ff-group">
+                            <label class="ff-label-small">Role</label>
+                            <select class="ff-select-field" name="user_type" required onchange="toggle(this.value)">
                                 <option value="" disabled selected>Role</option>
                                 <option value="student">Student</option>
                                 <option value="faculty">Faculty</option>
                             </select>
                         </div>
-                        <div class="ff-input-box">
-                            <label class="ff-input-label">Dept</label>
-                            <select class="ff-select-control" name="department" required>
+                        <div class="ff-group">
+                            <label class="ff-label-small">Dept</label>
+                            <select class="ff-select-field" name="department" required>
                                 <option value="" disabled selected>Dept</option>
                                 <option value="CSE">CSE</option><option value="ECE">ECE</option><option value="ME">ME</option>
                             </select>
                         </div>
                     </div>
-                    <div id="extra-section" class="ff-input-box">
-                        <label class="ff-input-label" id="extra-label">Year</label>
-                        <input class="ff-input-control" type="text" id="extra-input" name="batch" pattern="[0-9]{4}" maxlength="4" placeholder="2024">
+                    <div id="extra-info" class="ff-group">
+                        <label class="ff-label-small" id="extra-label">Year</label>
+                        <input class="ff-input-field" type="text" id="extra-input" name="batch" pattern="[0-9]{4}" maxlength="4" placeholder="2024">
                     </div>
-                    <div class="ff-input-box">
-                        <label class="ff-input-label">Password</label>
-                        <input class="ff-input-control" type="password" name="password" required placeholder="Min. 8 characters">
+                    <div class="ff-group">
+                        <label class="ff-label-small">Password</label>
+                        <input class="ff-input-field" type="password" name="password" required placeholder="Min. 8 characters">
                     </div>
-                    <button type="submit" id="mainBtn" class="ff-primary-btn">Sign Up</button>
+                    <button type="submit" id="main-btn" class="ff-button">Sign Up</button>
                 </form>
             `;
         }
     }
 
-    function toggleMeta(role) {
-        const section = document.getElementById('extra-section');
+    function toggle(v) {
+        const info = document.getElementById('extra-info');
         const label = document.getElementById('extra-label');
         const input = document.getElementById('extra-input');
-        if (role === 'student' || role === 'faculty') {
-            section.classList.add('active');
-            label.textContent = role === 'student' ? 'Graduation Year' : 'Joining Year';
+        if (v === 'student' || v === 'faculty') {
+            info.classList.add('active');
+            label.textContent = v === 'student' ? 'Graduation Year' : 'Joining Year';
             input.required = true;
         } else {
-            section.classList.remove('active');
+            info.classList.remove('active');
             input.required = false;
         }
     }
 
-    async function handleAuth(e, type) {
+    async function auth(e, type) {
         e.preventDefault();
-        const btn = document.getElementById('mainBtn');
-        const original = btn.innerText;
+        const btn = document.getElementById('main-btn');
+        const orig = btn.innerText;
         btn.disabled = true;
-        btn.innerText = "AUTHENTICATING...";
+        btn.innerText = "VERIFYING...";
         const payload = Object.fromEntries(new FormData(e.target).entries());
         try {
             const res = await fetch(type === 'login' ? '/auth/login' : '/auth/signup', {
@@ -369,23 +372,23 @@
             });
             const data = await res.json();
             if (res.ok) {
-                notify(type === 'login' ? "Welcome back!" : "Account created.");
+                notify(type === 'login' ? "Success! Logged in." : "Account created.");
                 setTimeout(() => window.location.href = data.redirect || '/', 1000);
             } else {
-                notify(data.message || "Authentication failed.");
-                btn.disabled = false; btn.innerText = original;
+                notify(data.message || "Failed to authenticate.");
+                btn.disabled = false; btn.innerText = orig;
             }
         } catch (err) {
-            notify("Connection error.");
-            btn.disabled = false; btn.innerText = original;
+            notify("Connection lost.");
+            btn.disabled = false; btn.innerText = orig;
         }
     }
 
-    function notify(msg) {
-        const box = document.getElementById('notif');
-        box.innerText = msg;
-        box.classList.add('active');
-        setTimeout(() => box.classList.remove('active'), 3500);
+    function notify(text) {
+        const t = document.getElementById('toast');
+        t.innerText = text;
+        t.classList.add('active');
+        setTimeout(() => t.classList.remove('active'), 3500);
     }
 
     render();
