@@ -1,478 +1,419 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FormFlow | Futuristic Campus Forms</title>
-    <meta name="description" content="Sign in or create an account for FormFlow, the educational platform reimagining form creation for modern students and teachers.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        :root {
-            --bg-color: #060a1f;
-            --electric-cyan: #00d4ff;
-            --soft-violet: #7f5af0;
-            --teal: #2cb67d;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --card-border: rgba(255, 255, 255, 0.15);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FormFlow | Sign in</title>
+  <meta name="description" content="Access your technical dashboard at FormFlow - reimagining forms for education.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            width: 100vw;
-            font-family: 'Nunito', sans-serif;
-            background-color: var(--bg-color);
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
+    body {
+      min-height: 100vh;
+      position: relative;
+      background-color: #0d0d14;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem 1rem; /* Tighter padding */
+      font-family: 'DM Sans', sans-serif;
+      overflow: hidden;
+      color: white;
+    }
 
-        /* ── Immersive Background ── */
-        .background-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -10;
-            overflow: hidden;
-            background: radial-gradient(circle at center, #0a0f2c 0%, #05081a 100%);
-        }
+    /* ── BOLD Technical Backdrop from User ── */
+    .ff-blobs {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        radial-gradient(ellipse 70% 55% at 10% 15%, rgba(42, 18, 95, 0.5) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 50% at 90% 85%, rgba(12, 58, 68, 0.45) 0%, transparent 70%),
+        radial-gradient(ellipse 45% 40% at 75% 10%, rgba(22, 18, 80, 0.45) 0%, transparent 65%);
+    }
 
-        /* Animated Orbs */
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.35;
-            animation: drift 25s infinite alternate ease-in-out;
-        }
+    .ff-dots {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.22) 1.2px, transparent 1.2px); /* Higher opacity for subagent */
+      background-size: 26px 26px;
+    }
 
-        .orb-blue {
-            width: 500px;
-            height: 500px;
-            background: var(--electric-cyan);
-            top: -100px;
-            left: -100px;
-            animation-duration: 30s;
-        }
+    /* Subtle Grain Overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      opacity: 0.15;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
 
-        .orb-violet {
-            width: 450px;
-            height: 450px;
-            background: var(--soft-violet);
-            bottom: -150px;
-            right: -150px;
-            animation-duration: 35s;
-            animation-delay: -5s;
-        }
+    /* ── Glassmorphism Card ── */
+    .ff-card {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 410px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.11);
+      border-radius: 24px;
+      padding: 2rem 2rem 1.75rem; /* Tightened footer */
+      backdrop-filter: blur(25px) saturate(180%);
+      -webkit-backdrop-filter: blur(25px) saturate(180%);
+      box-shadow: 0 40px 100px -20px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.08);
+      animation: emerge 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-        .orb-teal {
-            width: 400px;
-            height: 400px;
-            background: var(--teal);
-            top: 30%;
-            right: 20%;
-            animation-duration: 40s;
-            animation-delay: -10s;
-        }
+    @keyframes emerge {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 
-        @keyframes drift {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(60px, 40px) scale(1.1); }
-            100% { transform: translate(-40px, 80px) scale(0.9); }
-        }
+    /* Branding With Wave Symbol */
+    .ff-logo-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 0px;
+    }
 
-        /* Holographic Grid */
-        .grid-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 200%;
-            height: 200%;
-            background-image: 
-                linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
-            background-size: 60px 60px;
-            z-index: -5;
-            transform: perspective(500px) rotateX(60deg);
-            transform-origin: top;
-            animation: grid-move 40s linear infinite;
-        }
+    .ff-wave-logo {
+        width: 52px;
+        height: 52px;
+        background: linear-gradient(135deg, #00d4ff, #7b6ef6);
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 13c3.33-3.33 4.67-3.33 8 0s4.67 3.33 8 0M3 17c3.33-3.33 4.67-3.33 8 0s4.67 3.33 8 0M3 9c3.33-3.33 4.67-3.33 8 0s4.67 3.33 8 0' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") no-repeat center;
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 13c3.33-3.33 4.67-3.33 8 0s4.67 3.33 8 0M3 17c3.33-3.33 4.67-3.33 8 0s4.67 3.33 8 0M3 9c3.33-3.33 4.67-3.33 8 0s4.67 3.33 8 0' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") no-repeat center;
+        filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.7));
+        margin-bottom: 0.7rem;
+    }
 
-        @keyframes grid-move {
-            from { background-position: 0 0; }
-            to { background-position: 0 1000px; }
-        }
+    .ff-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 2.1rem;
+      font-weight: 700;
+      text-align: center;
+      background: linear-gradient(135deg, #00d4ff 0%, #7b6ef6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 0.1em;
+      margin: 0;
+      text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+    }
 
-        /* Particle Data Streams */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -3;
-        }
+    .ff-tagline {
+      text-align: center;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.38);
+      font-style: italic;
+      margin: 0.2rem 0 1.6rem;
+    }
 
-        .particle {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.15;
-            animation: float-up var(--duration) linear infinite;
-        }
+    /* Tabs */
+    .ff-tabs {
+      display: flex;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 1.5rem;
+      gap: 4px;
+      position: relative;
+    }
 
-        @keyframes float-up {
-            from { transform: translateY(105vh) scale(1); opacity: 0; }
-            to { transform: translateY(-10vh) scale(0.5); opacity: 0.25; }
-        }
+    .ff-tab {
+      flex: 1;
+      padding: 0.55rem 0;
+      border: none;
+      border-radius: 9px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: transparent;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+      z-index: 2;
+    }
 
-        /* ── Glassmorphism Card ── */
-        .glass-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--card-border);
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
-            border-radius: 30px;
-            width: 100%;
-            max-width: 400px;
-            padding: 2.25rem 2rem;
-            position: relative;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            animation: card-appear 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+    .ff-tab.active { color: #fff; }
 
-        @keyframes card-appear {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .ff-tab-pill {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        height: calc(100% - 8px);
+        width: calc(50% - 4px);
+        background: linear-gradient(135deg, #00b8d9, #6c5ce7);
+        border-radius: 9px;
+        transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        z-index: 1;
+        box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+    }
 
-        /* Branding */
-        .brand-name {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.1rem;
-            font-weight: 700;
-            color: var(--electric-cyan);
-            margin-bottom: 0.2rem;
-            text-shadow: 0 0 12px rgba(0, 212, 255, 0.4);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
+    /* Form Fields */
+    .ff-field { margin-bottom: 1rem; width: 100%; }
+    .ff-label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 0.45rem;
+      font-weight: 700;
+    }
 
-        .tagline {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.4);
-            font-style: italic;
-            margin-bottom: 1.5rem;
-            letter-spacing: 0.5px;
-        }
+    .ff-input {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 0.7rem 1rem;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.3s;
+    }
 
-        .logo-icon {
-            margin-bottom: 0.75rem;
-        }
+    .ff-input::placeholder { color: rgba(255,255,255,0.2); }
+    .ff-input:focus { 
+        border-color: rgba(0,212,255,0.6); 
+        background: rgba(255,255,255,0.08);
+        box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+    }
 
-        /* Tabs */
-        .tabs-nav {
-            display: flex;
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 12px;
-            padding: 4px;
-            margin-bottom: 1.5rem;
-            position: relative;
-            width: 100%;
-        }
+    .ff-row { display: flex; gap: 12px; }
+    .ff-row > div { flex: 1; }
 
-        .tab-btn {
-            flex: 1;
-            padding: 8px 0;
-            font-weight: 700;
-            font-size: 0.85rem;
-            text-align: center;
-            cursor: pointer;
-            z-index: 2;
-            transition: color 0.3s;
-            text-transform: uppercase;
-        }
+    .ff-select {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 0.7rem 1rem;
+      color: rgba(255,255,255,0.8);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      appearance: none;
+      cursor: pointer;
+    }
 
-        .tab-btn.active { color: white; }
-        .tab-btn:not(.active) { color: rgba(255, 255, 255, 0.35); }
+    /* Buttons */
+    .ff-btn {
+      width: 100%;
+      margin-top: 0.75rem;
+      padding: 0.85rem;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #00c6e0 0%, #6c5ce7 100%);
+      color: #fff;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.3s;
+      box-shadow: 0 10px 25px rgba(0,198,224,0.3);
+    }
 
-        .tab-indicator {
-            position: absolute;
-            top: 4px;
-            left: 4px;
-            height: calc(100% - 8px);
-            width: calc(50% - 4px);
-            background: linear-gradient(135deg, var(--electric-cyan), var(--soft-violet));
-            border-radius: 8px;
-            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-            box-shadow: 0 0 12px rgba(0, 212, 255, 0.3);
-            z-index: 1;
-        }
+    .ff-btn:hover { 
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(0,198,224,0.5);
+    }
+    .ff-btn:active { transform: translateY(0); }
 
-        /* Form Controls */
-        .input-group { margin-bottom: 1.1rem; width: 100%; }
-        .input-label {
-            display: block;
-            font-size: 10px;
-            font-weight: 700;
-            color: rgba(255, 255, 255, 0.4);
-            margin-bottom: 0.4rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+    .ff-footer { text-align: center; margin-top: 1.25rem; font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+    .ff-footer a { color: #00d4ff; text-decoration: none; font-weight: 600; }
+    .ff-footer a:hover { text-decoration: underline; color: white; }
 
-        .input-field {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            border: none;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.08);
-            padding: 9px 12px;
-            color: white;
-            font-size: 0.9rem;
-            border-radius: 6px 6px 0 0;
-            transition: all 0.3s;
-            outline: none;
-        }
+    /* Extra Fields Visibility */
+    #extra-fields { transition: all 0.4s ease; max-height: 0; opacity: 0; overflow: hidden; }
+    #extra-fields.active { max-height: 100px; opacity: 1; margin-top: 0.5rem; }
 
-        .input-field:focus {
-            background: rgba(255, 255, 255, 0.06);
-            border-bottom-color: var(--electric-cyan);
-            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.08);
-        }
-
-        .btn-submit {
-            width: 100%;
-            background: linear-gradient(135deg, var(--electric-cyan), var(--soft-violet));
-            color: white;
-            padding: 12px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: transform 0.25s, box-shadow 0.35s;
-            margin-top: 0.5rem;
-            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.2);
-        }
-
-        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0, 212, 255, 0.4); }
-
-        .helper-text { text-align: center; font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); margin-top: 1.15rem; }
-        .helper-link { color: var(--electric-cyan); text-decoration: none; font-weight: 600; }
-        .helper-link:hover { color: white; text-decoration: underline; }
-
-        #batch-row { transition: all 0.4s ease; max-height: 0; opacity: 0; overflow: hidden; }
-        #batch-row.visible { max-height: 80px; opacity: 1; margin-top: 0.4rem; }
-
-        .toast {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            padding: 14px 22px;
-            border-radius: 12px;
-            background: rgba(10, 15, 44, 0.95);
-            backdrop-filter: blur(10px);
-            border-left: 4px solid var(--electric-cyan);
-            color: white;
-            font-weight: 700;
-            z-index: 1000;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
-            transform: translateX(200%);
-            transition: transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-        }
-        .toast.visible { transform: translateX(0); }
-    </style>
+    /* Notifications */
+    .ff-notif {
+        position: fixed;
+        top: 30px;
+        right: 30px;
+        padding: 16px 24px;
+        border-radius: 15px;
+        background: rgba(13, 13, 20, 0.99);
+        backdrop-filter: blur(15px);
+        border-left: 5px solid #00d4ff;
+        color: white;
+        font-weight: 700;
+        z-index: 1000;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 1);
+        transform: translateX(300%);
+        transition: transform 0.6s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+    .ff-notif.active { transform: translateX(0); }
+  </style>
 </head>
 <body>
+  <div class="ff-blobs"></div>
+  <div class="ff-dots"></div>
 
-    <div class="background-container">
-        <div class="orb orb-blue"></div>
-        <div class="orb orb-violet"></div>
-        <div class="orb orb-teal"></div>
-        <div class="grid-overlay"></div>
-        <div class="particles" id="particle-container"></div>
+  <div class="ff-card">
+    <div class="ff-logo-group">
+        <div class="ff-wave-logo"></div>
+        <h1 class="ff-title">FormFlow</h1>
+        <p class="ff-tagline">Forms, reimagined for education</p>
     </div>
 
-    <div class="glass-card">
-        <div class="logo-icon">
-            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 4V20M4 12H20" stroke="url(#logo-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <defs>
-                    <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#00d4ff" />
-                        <stop offset="100%" stop-color="#7f5af0" />
-                    </linearGradient>
-                </defs>
-            </svg>
-        </div>
-        <h1 class="brand-name">FormFlow</h1>
-        <p class="tagline">Forms, reimagined for education</p>
-
-        <div class="tabs-nav">
-            <div class="tab-indicator" id="indicator"></div>
-            <div class="tab-btn active" id="login-tab" onclick="switchTab('login')">Sign In</div>
-            <div class="tab-btn" id="signup-tab" onclick="switchTab('signup')">Sign Up</div>
-        </div>
-
-        <div id="form-content" class="w-full"></div>
+    <div class="ff-tabs">
+      <div class="ff-tab-pill" id="pill"></div>
+      <button class="ff-tab active" id="tab-signin" onclick="switchMode('signin')">Sign In</button>
+      <button class="ff-tab" id="tab-signup" onclick="switchMode('signup')">Sign Up</button>
     </div>
 
-    <div id="toast" class="toast"></div>
+    <div id="auth-root" class="w-full"></div>
+  </div>
 
-    <script>
-        let currentTab = 'login';
-        const indicator = document.getElementById('indicator');
-        const loginTab = document.getElementById('login-tab');
-        const signupTab = document.getElementById('signup-tab');
-        const formContent = document.getElementById('form-content');
+  <div id="notif" class="ff-notif"></div>
 
-        function switchTab(tab) {
-            if (currentTab === tab) return;
-            currentTab = tab;
-            indicator.style.transform = tab === 'login' ? 'translateX(0)' : 'translateX(100%)';
-            loginTab.classList.toggle('active', tab === 'login');
-            signupTab.classList.toggle('active', tab === 'signup');
-            renderForm();
+  <script>
+    let mode = 'signin';
+    const pill = document.getElementById('pill');
+    const root = document.getElementById('auth-root');
+
+    function switchMode(m) {
+      if (mode === m) return;
+      mode = m;
+      pill.style.transform = m === 'signin' ? 'translateX(0)' : 'translateX(100%)';
+      document.getElementById('tab-signin').classList.toggle('active', m === 'signin');
+      document.getElementById('tab-signup').classList.toggle('active', m === 'signup');
+      render();
+    }
+
+    function render() {
+      if (mode === 'signin') {
+        root.innerHTML = `
+          <form onsubmit="handleAuth(event, 'login')">
+            <div class="ff-field">
+              <label class="ff-label">Identity (Email)</label>
+              <input class="ff-input" type="email" name="email" required placeholder="user@edu.in" />
+            </div>
+            <div class="ff-field">
+              <label class="ff-label">Secure Passcode</label>
+              <input class="ff-input" type="password" name="password" required placeholder="••••••••" />
+            </div>
+            <button type="submit" id="mainBtn" class="ff-btn">Access Portal</button>
+          </form>
+          <p class="ff-footer"><a href="#">Forgot credentials?</a></p>
+        `;
+      } else {
+        root.innerHTML = `
+          <form onsubmit="handleAuth(event, 'signup')">
+            <div class="ff-field">
+              <label class="ff-label">Full Identity</label>
+              <input class="ff-input" type="text" name="name" required placeholder="Your Identity" />
+            </div>
+            <div class="ff-field">
+              <label class="ff-label">College Email</label>
+              <input class="ff-input" type="email" name="email" required placeholder="id@college.edu" />
+            </div>
+            <div class="ff-row">
+              <div class="ff-field">
+                <label class="ff-label">Role</label>
+                <select class="ff-select" name="user_type" required onchange="toggleExtra(this.value)">
+                  <option value="" disabled selected>Select Role</option>
+                  <option value="student">Student</option>
+                  <option value="faculty">Faculty</option>
+                </select>
+              </div>
+              <div class="ff-field">
+                <label class="ff-label">Dept</label>
+                <select class="ff-select" name="department" required>
+                  <option value="" disabled selected>Dept</option>
+                  <option value="CSE">CSE</option>
+                  <option value="ECE">ECE</option>
+                  <option value="ME">ME</option>
+                </select>
+              </div>
+            </div>
+            <div id="extra-fields" class="ff-field">
+                <label class="ff-label" id="extra-label">Year</label>
+                <input class="ff-input" type="text" id="extra-input" name="batch" pattern="[0-9]{4}" maxlength="4" placeholder="2024">
+            </div>
+            <div class="ff-field">
+              <label class="ff-label">Access Secret</label>
+              <input class="ff-input" type="password" name="password" required placeholder="Min. 8 characters" />
+            </div>
+            <button type="submit" id="mainBtn" class="ff-btn">Establish Profile</button>
+          </form>
+        `;
+      }
+    }
+
+    function toggleExtra(role) {
+        const container = document.getElementById('extra-fields');
+        const label = document.getElementById('extra-label');
+        const input = document.getElementById('extra-input');
+        if (role === 'student' || role === 'faculty') {
+            container.classList.add('active');
+            label.textContent = role === 'student' ? 'Graduation Batch' : 'Joining Year';
+            input.required = true;
+        } else {
+            container.classList.remove('active');
+            input.required = false;
         }
+    }
 
-        function renderForm() {
-            if (currentTab === 'login') {
-                formContent.innerHTML = `
-                    <form onsubmit="handleAuth(event, 'login')">
-                        <div class="input-group">
-                            <label class="input-label">College Email</label>
-                            <input class="input-field" type="email" name="email" required placeholder="name@college.edu">
-                        </div>
-                        <div class="input-group">
-                            <label class="input-label">Access Credentials</label>
-                            <input class="input-field" type="password" name="password" required placeholder="••••••••">
-                        </div>
-                        <button type="submit" id="submitBtn" class="btn-submit">Initialize session</button>
-                    </form>
-                    <div class="helper-text">
-                        Link lost? <a href="#" class="helper-link">Reset Uplink</a>
-                    </div>
-                `;
-            } else {
-                formContent.innerHTML = `
-                    <form onsubmit="handleAuth(event, 'signup')">
-                        <div class="input-group">
-                            <label class="input-label">Identity</label>
-                            <input class="input-field" type="text" name="name" required placeholder="Full Name">
-                        </div>
-                        <div class="input-group">
-                            <label class="input-label">College Email</label>
-                            <input class="input-field" type="email" name="email" required placeholder="id@college.edu">
-                        </div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="input-group">
-                                <label class="input-label">Role</label>
-                                <select class="input-field" name="user_type" required onchange="handleRoleChange(this.value)">
-                                    <option value="" disabled selected>Role</option>
-                                    <option value="student">Student</option>
-                                    <option value="faculty">Faculty</option>
-                                </select>
-                            </div>
-                            <div class="input-group">
-                                <label class="input-label">Dept</label>
-                                <select class="input-field" name="department" required>
-                                    <option value="" disabled selected>Dept</option>
-                                    <option value="CSE">CSE</option><option value="ECE">ECE</option><option value="ME">ME</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div id="batch-row" class="input-group">
-                            <label class="input-label" id="batch-label">Year</label>
-                            <input class="input-field" type="text" id="batch" name="batch" pattern="[0-9]{4}" maxlength="4" placeholder="2024">
-                        </div>
-                        <div class="input-group">
-                            <label class="input-label">Access Secret</label>
-                            <input class="input-field" type="password" name="password" required placeholder="Min. 8 characters">
-                        </div>
-                        <button type="submit" id="submitBtn" class="btn-submit">Establish Profile</button>
-                    </form>
-                `;
-            }
+    async function handleAuth(e, type) {
+      e.preventDefault();
+      const btn = document.getElementById('mainBtn');
+      const originalText = btn.innerText;
+      btn.disabled = true;
+      btn.innerText = "AUTHENTICATING...";
+      
+      const formData = new FormData(e.target);
+      const payload = Object.fromEntries(formData.entries());
+      
+      try {
+        const res = await fetch(type === 'login' ? '/auth/login' : '/auth/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        
+        const data = await res.json();
+        
+        if (res.ok) {
+          notify(type === 'login' ? "Protocol Established." : "Identity Verified.");
+          setTimeout(() => type === 'login' ? window.location.href = data.redirect || '/' : switchMode('signin'), 1000);
+        } else {
+          notify(data.message || "Uplink Error.");
+          btn.disabled = false;
+          btn.innerText = originalText;
         }
+      } catch (err) {
+        notify("System Link Failure.");
+        btn.disabled = false;
+        btn.innerText = originalText;
+      }
+    }
 
-        function handleRoleChange(role) {
-            const row = document.getElementById('batch-row');
-            const label = document.getElementById('batch-label');
-            const field = document.getElementById('batch');
-            if (role === 'student' || role === 'faculty') {
-                row.classList.add('visible');
-                label.textContent = role === 'student' ? 'Batch Year' : 'Joining Year';
-                field.required = true;
-            } else {
-                row.classList.remove('visible');
-                field.required = false;
-            }
-        }
+    function notify(msg) {
+      const box = document.getElementById('notif');
+      box.innerText = msg;
+      box.classList.add('active');
+      setTimeout(() => box.classList.remove('active'), 3500);
+    }
 
-        async function handleAuth(e, type) {
-            e.preventDefault();
-            const btn = e.target.querySelector('button');
-            const originalText = btn.innerText;
-            btn.disabled = true;
-            btn.innerText = "AUTHORIZING...";
-            const data = Object.fromEntries(new FormData(e.target).entries());
-            try {
-                const res = await fetch(type === 'login' ? '/auth/login' : '/auth/signup', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-                const result = await res.json();
-                if (res.ok) {
-                    showToast(type === 'login' ? "Protocol established." : "Account initialized.");
-                    setTimeout(() => type === 'login' ? window.location.href = result.redirect || '/' : switchTab('login'), 1200);
-                } else {
-                    showToast(result.message || "Uplink Error.");
-                    btn.disabled = false; btn.innerText = originalText;
-                }
-            } catch (err) {
-                showToast("Terminal Failure.");
-                btn.disabled = false; btn.innerText = originalText;
-            }
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.innerText = message;
-            toast.classList.add('visible');
-            setTimeout(() => toast.classList.remove('visible'), 3000);
-        }
-
-        // Particle System
-        const particleContainer = document.getElementById('particle-container');
-        function createParticle() {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            const size = Math.random() * 2.5 + 1 + 'px';
-            p.style.width = size; p.style.height = size;
-            p.style.left = Math.random() * 100 + 'vw';
-            p.style.setProperty('--duration', Math.random() * 8 + 6 + 's');
-            particleContainer.appendChild(p);
-            setTimeout(() => p.remove(), 15000);
-        }
-        setInterval(createParticle, 600);
-        for(let i=0; i<15; i++) createParticle();
-
-        renderForm();
-    </script>
+    render();
+  </script>
 </body>
 </html>
