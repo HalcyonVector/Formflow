@@ -3,314 +3,385 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FormFlow | Futuristic Campus Forms</title>
+    <meta name="description" content="Sign in or create an account for FormFlow, the educational platform reimagining form creation for modern students and teachers.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Sign in | FormFlow</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        :root {
+            --bg-color: #060a1f;
+            --electric-cyan: #00d4ff;
+            --soft-violet: #7f5af0;
+            --teal: #2cb67d;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.15);
+        }
 
-        * { font-family: 'Plus Jakarta Sans', sans-serif; }
-
-        body {
-            /* Lighter Gradient (No Black) */
-            background: radial-gradient(circle at top left, #1e1b4b 0%, #0f172a 40%, #1e1b4b 100%);
-            color: #fff;
+        body, html {
             margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg-color);
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden; /* No scrolling */
+            color: white;
         }
 
-        /* ── Dotted Grid Background ── */
-        .bg-dots {
+        /* ── Immersive Background ── */
+        .background-container {
             position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: -1;
-            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 0);
-            background-size: 24px 24px;
-        }
-
-        /* ── Colorful Ambient Orbs (Refined for lighter BG) ── */
-        .orb {
-            position: fixed;
-            width: 60vh;
-            height: 60vh;
-            border-radius: 50%;
-            filter: blur(160px);
-            opacity: 0.12;
-            z-index: -2;
-            pointer-events: none;
-        }
-        .orb-indigo { background: #6366f1; top: -10%; left: -5%; }
-        .orb-teal { background: #2dd4bf; bottom: 10%; right: -5%; }
-        .orb-orange { background: #f97316; top: 30%; right: 15%; opacity: 0.05; }
-
-        /* ── Glass Container ─────────────────────────────────────────────── */
-        .glass-container {
-            background: rgba(15, 23, 42, 0.5); /* Matching navy/indigo base */
-            backdrop-filter: blur(32px);
-            -webkit-backdrop-filter: blur(32px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 2rem;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 400px; /* Fixed size as requested */
-            padding: 2.5rem 2.25rem;
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+            height: 100%;
+            z-index: -10;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #0a0f2c 0%, #05081a 100%);
+        }
+
+        /* Animated Orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.35;
+            animation: drift 25s infinite alternate ease-in-out;
+        }
+
+        .orb-blue {
+            width: 500px;
+            height: 500px;
+            background: var(--electric-cyan);
+            top: -100px;
+            left: -100px;
+            animation-duration: 30s;
+        }
+
+        .orb-violet {
+            width: 450px;
+            height: 450px;
+            background: var(--soft-violet);
+            bottom: -150px;
+            right: -150px;
+            animation-duration: 35s;
+            animation-delay: -5s;
+        }
+
+        .orb-teal {
+            width: 400px;
+            height: 400px;
+            background: var(--teal);
+            top: 30%;
+            right: 20%;
+            animation-duration: 40s;
+            animation-delay: -10s;
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(60px, 40px) scale(1.1); }
+            100% { transform: translate(-40px, 80px) scale(0.9); }
+        }
+
+        /* Holographic Grid */
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -5;
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: top;
+            animation: grid-move 40s linear infinite;
+        }
+
+        @keyframes grid-move {
+            from { background-position: 0 0; }
+            to { background-position: 0 1000px; }
+        }
+
+        /* Particle Data Streams */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -3;
+        }
+
+        .particle {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: float-up var(--duration) linear infinite;
+        }
+
+        @keyframes float-up {
+            from { transform: translateY(105vh) scale(1); opacity: 0; }
+            to { transform: translateY(-10vh) scale(0.5); opacity: 0.25; }
+        }
+
+        /* ── Glassmorphism Card ── */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--card-border);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
+            border-radius: 30px;
+            width: 100%;
+            max-width: 400px;
+            padding: 2.25rem 2rem;
             position: relative;
             z-index: 10;
-            animation: cardIn 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: card-appear 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* ── Tabs ── */
-        .tabs {
+        @keyframes card-appear {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Branding */
+        .brand-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: var(--electric-cyan);
+            margin-bottom: 0.2rem;
+            text-shadow: 0 0 12px rgba(0, 212, 255, 0.4);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-icon {
+            margin-bottom: 0.75rem;
+        }
+
+        /* Tabs */
+        .tabs-nav {
             display: flex;
             background: rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
             padding: 4px;
-            border-radius: 1rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .tab-btn {
-            flex: 1;
-            padding: 10px;
-            border-radius: 0.8rem;
-            font-size: 11px;
-            font-weight: 800;
-            transition: all 0.3s;
-            color: rgba(255, 255, 255, 0.25);
-            cursor: pointer;
-            text-align: center;
-        }
-        .tab-btn.active {
-            background: rgba(255, 255, 255, 0.08);
-            color: #fff;
+            margin-bottom: 1.5rem;
+            position: relative;
+            width: 100%;
         }
 
-        /* ── Inputs ── */
-        .input-group { margin-bottom: 1.25rem; }
+        .tab-btn {
+            flex: 1;
+            padding: 8px 0;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-align: center;
+            cursor: pointer;
+            z-index: 2;
+            transition: color 0.3s;
+            text-transform: uppercase;
+        }
+
+        .tab-btn.active { color: white; }
+        .tab-btn:not(.active) { color: rgba(255, 255, 255, 0.35); }
+
+        .tab-indicator {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            height: calc(100% - 8px);
+            width: calc(50% - 4px);
+            background: linear-gradient(135deg, var(--electric-cyan), var(--soft-violet));
+            border-radius: 8px;
+            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            box-shadow: 0 0 12px rgba(0, 212, 255, 0.3);
+            z-index: 1;
+        }
+
+        /* Form Controls */
+        .input-group { margin-bottom: 1.1rem; width: 100%; }
         .input-label {
             display: block;
             font-size: 10px;
-            font-weight: 800;
-            color: rgba(255, 255, 255, 0.25);
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 0.4rem;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin-bottom: 8px;
-            margin-left: 4px;
+            letter-spacing: 1px;
         }
-        .field {
+
+        .input-field {
             width: 100%;
             background: rgba(255, 255, 255, 0.03);
-            border: 1.5px solid rgba(255, 255, 255, 0.06);
-            border-radius: 0.8rem;
-            padding: 14px 18px;
-            color: #fff;
-            font-size: 14px;
+            border: none;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+            padding: 9px 12px;
+            color: white;
+            font-size: 0.9rem;
+            border-radius: 6px 6px 0 0;
             transition: all 0.3s;
             outline: none;
         }
-        .field:focus {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-        .field::placeholder { color: rgba(255, 255, 255, 0.1); }
 
-        /* ── Button ── */
-        .btn-action {
+        .input-field:focus {
+            background: rgba(255, 255, 255, 0.06);
+            border-bottom-color: var(--electric-cyan);
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.08);
+        }
+
+        .btn-submit {
             width: 100%;
-            background: #fff;
-            color: #000;
-            padding: 14px;
-            border-radius: 0.85rem;
-            font-weight: 800;
-            font-size: 15px;
-            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-            margin-top: 0.75rem;
-            border: none;
+            background: linear-gradient(135deg, var(--electric-cyan), var(--soft-violet));
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             cursor: pointer;
-        }
-        .btn-action:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.1);
-        }
-
-        .brand-header {
-            text-align: center;
-            margin-bottom: 2.25rem;
-            animation: fadeIn 0.8s ease-out forwards;
+            transition: transform 0.25s, box-shadow 0.35s;
+            margin-top: 0.5rem;
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.2);
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes cardIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0, 212, 255, 0.4); }
 
-        .batch-row { overflow: hidden; transition: all 0.4s; max-height: 0; opacity: 0; }
-        .batch-row.visible { max-height: 100px; opacity: 1; margin-bottom: 1.25rem; }
+        .helper-text { text-align: center; font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); margin-top: 1.15rem; }
+        .helper-link { color: var(--electric-cyan); text-decoration: none; font-weight: 600; }
+        .helper-link:hover { color: white; text-decoration: underline; }
+
+        #batch-row { transition: all 0.4s ease; max-height: 0; opacity: 0; overflow: hidden; }
+        #batch-row.visible { max-height: 80px; opacity: 1; margin-top: 0.4rem; }
 
         .toast {
             position: fixed;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10000;
-            padding: 12px 24px;
-            border-radius: 10px;
-            background: #1e1b4b;
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #fff;
+            top: 25px;
+            right: 25px;
+            padding: 14px 22px;
+            border-radius: 12px;
+            background: rgba(10, 15, 44, 0.95);
+            backdrop-filter: blur(10px);
+            border-left: 4px solid var(--electric-cyan);
+            color: white;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            animation: slideIn 0.5s;
+            z-index: 1000;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+            transform: translateX(200%);
+            transition: transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
         }
-        @keyframes slideIn { from { top: -40px; opacity: 0; } to { top: 30px; opacity: 1; } }
+        .toast.visible { transform: translateX(0); }
     </style>
 </head>
 <body>
 
-    <div class="bg-dots"></div>
-    <div class="orb orb-indigo"></div>
-    <div class="orb orb-teal"></div>
-    <div class="orb orb-orange"></div>
-
-    <div class="flex flex-col items-center w-full px-8 max-w-xl mx-auto">
-        <div class="brand-header">
-            <div class="inline-flex items-center justify-center w-12 h-12 bg-indigo-950 rounded-xl mb-4 border border-indigo-500/20 shadow-2xl">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7 8L3 12L7 16M17 8L21 12L17 16M14 4L10 20" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </div>
-            <h1 class="text-3xl font-extrabold tracking-tighter mb-1 text-white uppercase flex items-center justify-center gap-2">
-                Form<span class="text-indigo-400">Flow</span>
-            </h1>
-            <p class="text-white/30 text-[10px] font-black tracking-[0.2em] uppercase text-center">
-                Seamless campus form creation.
-            </p>
-        </div>
-
-        <div class="glass-container">
-            <div class="tabs" id="tabs-container">
-                <div class="tab-btn active" id="login-tab" onclick="switchTab('login')">SIGN IN</div>
-                <div class="tab-btn" id="signup-tab" onclick="switchTab('signup')">CREATE ACCOUNT</div>
-            </div>
-
-            <div id="form-content"></div>
-        </div>
+    <div class="background-container">
+        <div class="orb orb-blue"></div>
+        <div class="orb orb-violet"></div>
+        <div class="orb orb-teal"></div>
+        <div class="grid-overlay"></div>
+        <div class="particles" id="particle-container"></div>
     </div>
+
+    <div class="glass-card">
+        <div class="logo-icon">
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 4V20M4 12H20" stroke="url(#logo-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <defs>
+                    <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#00d4ff" />
+                        <stop offset="100%" stop-color="#7f5af0" />
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+        <h1 class="brand-name">FormFlow</h1>
+        <p class="tagline">Forms, reimagined for education</p>
+
+        <div class="tabs-nav">
+            <div class="tab-indicator" id="indicator"></div>
+            <div class="tab-btn active" id="login-tab" onclick="switchTab('login')">Sign In</div>
+            <div class="tab-btn" id="signup-tab" onclick="switchTab('signup')">Sign Up</div>
+        </div>
+
+        <div id="form-content" class="w-full"></div>
+    </div>
+
+    <div id="toast" class="toast"></div>
 
     <script>
         let currentTab = 'login';
+        const indicator = document.getElementById('indicator');
+        const loginTab = document.getElementById('login-tab');
+        const signupTab = document.getElementById('signup-tab');
+        const formContent = document.getElementById('form-content');
 
         function switchTab(tab) {
             if (currentTab === tab) return;
             currentTab = tab;
-            document.getElementById('login-tab').classList.toggle('active', tab === 'login');
-            document.getElementById('signup-tab').classList.toggle('active', tab === 'signup');
+            indicator.style.transform = tab === 'login' ? 'translateX(0)' : 'translateX(100%)';
+            loginTab.classList.toggle('active', tab === 'login');
+            signupTab.classList.toggle('active', tab === 'signup');
             renderForm();
         }
 
-        function showToast(message) {
-            const old = document.getElementById('toast');
-            if (old) old.remove();
-            const toast = document.createElement('div');
-            toast.id = 'toast';
-            toast.className = 'toast';
-            toast.innerHTML = `<span>${message}</span>`;
-            document.body.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                setTimeout(() => toast.remove(), 500);
-            }, 3000);
-        }
-
-        function handleRoleChange(select) {
-            const row = document.getElementById('batch-row');
-            const label = document.getElementById('batch-label-text');
-            const input = document.getElementById('batch');
-            if (!row) return;
-
-            if (select.value === 'student' || select.value === 'faculty') {
-                row.classList.add('visible');
-                label.textContent = select.value === 'student' ? 'Batch Year' : 'Joining Year';
-                input.required = true;
-            } else {
-                row.classList.remove('visible');
-                input.required = false;
-            }
-        }
-
-        async function handleAuth(e, type) {
-            e.preventDefault();
-            const form = e.target;
-            const btn = form.querySelector('button');
-            const originalText = btn.textContent;
-            
-            btn.disabled = true;
-            btn.textContent = 'AUTHORIZING...';
-            btn.style.opacity = '0.6';
-
-            try {
-                const fd = new FormData(form);
-                const body = Object.fromEntries(fd.entries());
-                const res = await fetch(type === 'login' ? '/auth/login' : '/auth/signup', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(body),
-                });
-                const data = await res.json();
-
-                if (res.ok) {
-                    if (type === 'login') window.location.href = data.redirect || '/';
-                    else {
-                        showToast('ACCOUNT CREATED');
-                        setTimeout(() => switchTab('login'), 1200);
-                    }
-                } else {
-                    showToast(data.message || data.error || 'FAILED');
-                }
-            } catch (err) {
-                showToast('CONNECTION LOST');
-            } finally {
-                btn.disabled = false;
-                btn.textContent = originalText;
-                btn.style.opacity = '1';
-            }
-        }
-
         function renderForm() {
-            const container = document.getElementById('form-content');
             if (currentTab === 'login') {
-                container.innerHTML = `
-                    <form onsubmit="handleAuth(event, 'login')" style="animation: fadeIn 0.4s ease-out forwards;">
+                formContent.innerHTML = `
+                    <form onsubmit="handleAuth(event, 'login')">
                         <div class="input-group">
-                            <label class="input-label">Username</label>
-                            <input type="email" name="email" required placeholder="name@college.edu" class="field">
+                            <label class="input-label">College Email</label>
+                            <input class="input-field" type="email" name="email" required placeholder="name@college.edu">
                         </div>
                         <div class="input-group">
-                            <label class="input-label">Password</label>
-                            <input type="password" name="password" required placeholder="••••••••" class="field">
+                            <label class="input-label">Access Credentials</label>
+                            <input class="input-field" type="password" name="password" required placeholder="••••••••">
                         </div>
-                        <button type="submit" class="btn-action">SIGN IN</button>
+                        <button type="submit" id="submitBtn" class="btn-submit">Initialize session</button>
                     </form>
+                    <div class="helper-text">
+                        Link lost? <a href="#" class="helper-link">Reset Uplink</a>
+                    </div>
                 `;
             } else {
-                container.innerHTML = `
-                    <form onsubmit="handleAuth(event, 'signup')" style="animation: fadeIn 0.4s ease-out forwards;">
+                formContent.innerHTML = `
+                    <form onsubmit="handleAuth(event, 'signup')">
                         <div class="input-group">
                             <label class="input-label">Identity</label>
-                            <input type="text" name="name" required placeholder="Full Name" class="field">
+                            <input class="input-field" type="text" name="name" required placeholder="Full Name">
                         </div>
                         <div class="input-group">
-                            <label class="input-label">College Mail</label>
-                            <input type="email" name="email" required placeholder="id@college.edu" class="field">
+                            <label class="input-label">College Email</label>
+                            <input class="input-field" type="email" name="email" required placeholder="id@college.edu">
                         </div>
-                        <div class="grid grid-cols-2 gap-4">
+                        <div class="grid grid-cols-2 gap-3">
                             <div class="input-group">
                                 <label class="input-label">Role</label>
-                                <select name="user_type" required class="field" onchange="handleRoleChange(this)">
+                                <select class="input-field" name="user_type" required onchange="handleRoleChange(this.value)">
                                     <option value="" disabled selected>Role</option>
                                     <option value="student">Student</option>
                                     <option value="faculty">Faculty</option>
@@ -318,25 +389,89 @@
                             </div>
                             <div class="input-group">
                                 <label class="input-label">Dept</label>
-                                <select name="department" required class="field">
+                                <select class="input-field" name="department" required>
                                     <option value="" disabled selected>Dept</option>
                                     <option value="CSE">CSE</option><option value="ECE">ECE</option><option value="ME">ME</option>
                                 </select>
                             </div>
                         </div>
-                        <div id="batch-row" class="batch-row">
-                            <label class="input-label" id="batch-label-text">Year</label>
-                            <input type="text" id="batch" name="batch" pattern="[0-9]{4}" maxlength="4" placeholder="2024" class="field">
+                        <div id="batch-row" class="input-group">
+                            <label class="input-label" id="batch-label">Year</label>
+                            <input class="input-field" type="text" id="batch" name="batch" pattern="[0-9]{4}" maxlength="4" placeholder="2024">
                         </div>
                         <div class="input-group">
-                            <label class="input-label">Password</label>
-                            <input type="password" name="password" required placeholder="Min. 8 characters" class="field">
+                            <label class="input-label">Access Secret</label>
+                            <input class="input-field" type="password" name="password" required placeholder="Min. 8 characters">
                         </div>
-                        <button type="submit" class="btn-action">CREATE ACCOUNT</button>
+                        <button type="submit" id="submitBtn" class="btn-submit">Establish Profile</button>
                     </form>
                 `;
             }
         }
+
+        function handleRoleChange(role) {
+            const row = document.getElementById('batch-row');
+            const label = document.getElementById('batch-label');
+            const field = document.getElementById('batch');
+            if (role === 'student' || role === 'faculty') {
+                row.classList.add('visible');
+                label.textContent = role === 'student' ? 'Batch Year' : 'Joining Year';
+                field.required = true;
+            } else {
+                row.classList.remove('visible');
+                field.required = false;
+            }
+        }
+
+        async function handleAuth(e, type) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+            btn.disabled = true;
+            btn.innerText = "AUTHORIZING...";
+            const data = Object.fromEntries(new FormData(e.target).entries());
+            try {
+                const res = await fetch(type === 'login' ? '/auth/login' : '/auth/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+                if (res.ok) {
+                    showToast(type === 'login' ? "Protocol established." : "Account initialized.");
+                    setTimeout(() => type === 'login' ? window.location.href = result.redirect || '/' : switchTab('login'), 1200);
+                } else {
+                    showToast(result.message || "Uplink Error.");
+                    btn.disabled = false; btn.innerText = originalText;
+                }
+            } catch (err) {
+                showToast("Terminal Failure.");
+                btn.disabled = false; btn.innerText = originalText;
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.add('visible');
+            setTimeout(() => toast.classList.remove('visible'), 3000);
+        }
+
+        // Particle System
+        const particleContainer = document.getElementById('particle-container');
+        function createParticle() {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            const size = Math.random() * 2.5 + 1 + 'px';
+            p.style.width = size; p.style.height = size;
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.setProperty('--duration', Math.random() * 8 + 6 + 's');
+            particleContainer.appendChild(p);
+            setTimeout(() => p.remove(), 15000);
+        }
+        setInterval(createParticle, 600);
+        for(let i=0; i<15; i++) createParticle();
+
         renderForm();
     </script>
 </body>
