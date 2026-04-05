@@ -9,102 +9,97 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
         :root {
-            --emerald-glow: rgba(16, 185, 129, 0.15);
-            --slate-glow: rgba(59, 130, 246, 0.1);
+            --dark-indigo: #020617;
+            --dark-teal: #031b1a;
         }
 
         * { font-family: 'Plus Jakarta Sans', sans-serif; }
 
         body {
-            background-color: #0a0a0a;
-            color: #fff;
-            overflow-x: hidden;
             margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background-color: var(--dark-indigo);
+            color: #fff;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            /* Drastic Vertical Spacing Fix (8rem / 128px) */
+            padding-top: 8rem;
+            padding-bottom: 4rem;
         }
 
-        /* ── Dynamic Background Orbs ── */
-        .orb {
+        /* ── Original Designer Background ── */
+        .bg-base {
             position: fixed;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            filter: blur(100px);
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            background: linear-gradient(135deg, var(--dark-indigo) 0%, var(--dark-teal) 100%);
+        }
+
+        /* ── Dotted Grid Pattern ── */
+        .bg-dots {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             z-index: -1;
-            opacity: 0.4;
-            animation: move 30s infinite alternate ease-in-out;
-        }
-        .orb-1 {
-            background: radial-gradient(circle, #10b981 0%, transparent 70%);
-            top: -20%;
-            left: -10%;
-        }
-        .orb-2 {
-            background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
-            bottom: -20%;
-            right: -10%;
-            animation-delay: -7s;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 32px 32px;
+            pointer-events: none;
         }
 
-        @keyframes move {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(150px, 80px) scale(1.15); }
-        }
-
-        /* ── Glass Container ── */
+        /* ── Glass Container ─────────────────────────────────────────────── */
         .glass-container {
-            background: rgba(15, 15, 15, 0.75);
-            backdrop-filter: blur(32px);
-            -webkit-backdrop-filter: blur(32px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 2.5rem;
+            background: rgba(10, 10, 10, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 2rem;
             width: 100%;
-            max-width: 440px;
+            max-width: 420px;
             padding: 3rem 2.5rem;
-            box-shadow: 0 40px 120px rgba(0, 0, 0, 0.9);
+            box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
             position: relative;
             z-index: 10;
         }
 
-        /* ── Segmented Control (Tabs) ── */
+        /* ── Segmented Tabs ── */
         .tabs {
             display: flex;
             background: rgba(255, 255, 255, 0.04);
             padding: 5px;
             border-radius: 1.25rem;
             margin-bottom: 2.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .tab-btn {
             flex: 1;
-            padding: 12px;
+            padding: 11px;
             border-radius: 1rem;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            color: rgba(255, 255, 255, 0.4);
+            transition: all 0.3s;
+            color: rgba(255, 255, 255, 0.3);
             cursor: pointer;
             text-align: center;
-            user-select: none;
         }
         .tab-btn.active {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             color: #fff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         /* ── Inputs ── */
-        .input-group {
-            margin-bottom: 1.5rem;
-        }
+        .input-group { margin-bottom: 1.5rem; }
         .input-label {
             display: block;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 800;
-            color: rgba(255, 255, 255, 0.35);
+            color: rgba(255, 255, 255, 0.25);
             text-transform: uppercase;
             letter-spacing: 0.15em;
             margin-bottom: 10px;
@@ -112,194 +107,148 @@
         }
         .field {
             width: 100%;
-            background: rgba(255, 255, 255, 0.035);
-            border: 2px solid rgba(255, 255, 255, 0.08);
-            border-radius: 1.25rem;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1.5px solid rgba(255, 255, 255, 0.07);
+            border-radius: 0.85rem;
             padding: 16px 20px;
             color: #fff;
-            font-size: 15px;
-            font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s;
             outline: none;
         }
         .field:focus {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: #10b981;
-            box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.12);
-            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
         }
-        .field::placeholder { color: rgba(255, 255, 255, 0.15); }
-        .field select { background: transparent; }
-        option { background: #111; color: #fff; }
+        .field::placeholder { color: rgba(255, 255, 255, 0.12); }
 
-        /* ── Primary Button ── */
+        /* ── High-Contrast Action Button ── */
         .btn-action {
             width: 100%;
             background: #fff;
             color: #000;
             padding: 16px;
-            border-radius: 1.25rem;
+            border-radius: 1rem;
             font-weight: 800;
             font-size: 16px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
             margin-top: 1rem;
             border: none;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
         }
         .btn-action:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
         }
-        .btn-action:active { transform: translateY(-1px) scale(1); }
+        .btn-action:active { transform: translateY(0); }
 
-        /* ── Toast ── */
-        .toast {
-            position: fixed;
-            top: 32px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            padding: 14px 24px;
-            border-radius: 16px;
-            font-size: 14px;
-            font-weight: 700;
-            display: flex;
+        /* ── Brand Header ── */
+        .brand-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        .brand-icon {
+            display: inline-flex;
             align-items: center;
-            gap: 12px;
-            animation: slideIn 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            border: 1px solid rgba(255,255,255,0.15);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-        .toast.error { background: rgba(239, 68, 68, 0.95); backdrop-filter: blur(12px); color: #fff; }
-        .toast.success { background: rgba(16, 185, 129, 0.95); backdrop-filter: blur(12px); color: #fff; }
-
-        @keyframes slideIn {
-            from { transform: translate(-50%, -40px); opacity: 0; }
-            to { transform: translate(-50%, 0); opacity: 1; }
+            justify-content: center;
+            width: 14 h-14 bg-zinc-900 rounded-[1.25rem] mb-6 border border-white/5 shadow-2xl;
         }
 
-        /* ── Animations ── */
-        .fade-in { animation: fadeIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .batch-row {
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            max-height: 0;
-            opacity: 0;
-            margin-bottom: 0;
+        .batch-row { overflow: hidden; transition: all 0.4s; max-height: 0; opacity: 0; }
+        .batch-row.visible { max-height: 120px; opacity: 1; margin-bottom: 1.5rem; }
+
+        /* ── Toast ── */
+        .toast {
+            position: fixed;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            padding: 14px 28px;
+            border-radius: 12px;
+            background: #111;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.5s;
         }
-        .batch-row.visible {
-            max-height: 120px;
-            opacity: 1;
-            margin-bottom: 1.5rem;
-        }
+        @keyframes slideIn { from { top: -40px; opacity: 0; } to { top: 40px; opacity: 1; } }
     </style>
 </head>
-<body class="bg-[#080808]">
+<body>
 
-    <!-- Background Decoration -->
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
+    <div class="bg-base"></div>
+    <div class="bg-dots"></div>
 
-    <div class="flex flex-col items-center w-full max-w-md px-6">
-        <!-- Logo & Header -->
-        <div class="text-center mb-10 fade-in">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-600 rounded-[1.25rem] mb-6 shadow-2xl shadow-emerald-900/30">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div class="flex flex-col items-center w-full px-8">
+        <!-- Optimized Header -->
+        <div class="brand-header">
+            <div class="inline-flex items-center justify-center w-14 h-14 bg-black rounded-2xl mb-6 border border-white/10 shadow-emerald-500/10">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7 8L3 12L7 16M17 8L21 12L17 16M14 4L10 20" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
-            <h1 class="text-5xl font-black tracking-tighter mb-3 uppercase flex items-center justify-center gap-2">
+            <h1 class="text-4xl font-extrabold tracking-tighter mb-2 text-white uppercase flex items-center justify-center gap-2">
                 Form<span class="text-emerald-400">Flow</span>
             </h1>
-            <p class="text-white/40 text-sm font-semibold tracking-wide">Campus essentials collected in minutes.</p>
+            <p class="text-white/20 text-[10px] font-black tracking-[0.4em] uppercase">Refined Data Collection</p>
         </div>
 
-        <!-- Main Card -->
-        <div class="glass-container fade-in" style="animation-delay: 0.1s;">
+        <!-- Glass container -->
+        <div class="glass-container" style="animation: fadeIn 0.8s ease-out forwards; animation-delay: 0.1s; opacity: 0;">
             <div class="tabs" id="tabs-container">
-                <div class="tab-btn active" id="login-tab" onclick="switchTab('login')">Sign In</div>
-                <div class="tab-btn" id="signup-tab" onclick="switchTab('signup')">Create Account</div>
+                <div class="tab-btn active" id="login-tab" onclick="switchTab('login')">SIGN IN</div>
+                <div class="tab-btn" id="signup-tab" onclick="switchTab('signup')">CREATE ACCOUNT</div>
             </div>
 
-            <div id="form-content">
-                <!-- Content injected here -->
-            </div>
+            <div id="form-content"></div>
         </div>
 
-        <div class="mt-12 text-center fade-in" style="animation-delay: 0.2s;">
-            <p class="text-white/20 text-[10px] font-black tracking-[0.3em] uppercase mb-1">
-                A Sagnik Basu Production
-            </p>
-            <div class="h-[1px] w-8 bg-white/10 mx-auto"></div>
+        <!-- Footer -->
+        <div class="mt-20 text-center opacity-20" style="animation: fadeIn 0.8s ease-out forwards; animation-delay: 0.2s; opacity: 0;">
+            <p class="text-[9px] font-black tracking-[0.6em] uppercase">SYSTEMS • DESIGNED BY BASU • MMXXIV</p>
         </div>
     </div>
 
     <script>
-        // ── Navigation State ──
         let currentTab = 'login';
 
         function switchTab(tab) {
             if (currentTab === tab) return;
             currentTab = tab;
-            
             document.getElementById('login-tab').classList.toggle('active', tab === 'login');
             document.getElementById('signup-tab').classList.toggle('active', tab === 'signup');
-            
-            // Smooth transition for content
-            const content = document.getElementById('form-content');
-            content.style.opacity = '0';
-            content.style.transform = 'translateY(10px)';
-            
-            setTimeout(() => {
-                renderForm();
-                content.style.opacity = '1';
-                content.style.transform = 'translateY(0)';
-            }, 200);
+            renderForm();
         }
 
-        // ── Toast System ──
-        function showToast(type, message) {
+        function showToast(message) {
             const old = document.getElementById('toast');
             if (old) old.remove();
-
             const toast = document.createElement('div');
             toast.id = 'toast';
-            toast.className = `toast ${type}`;
-            toast.innerHTML = `
-                <span class="text-xl">${type === 'error' ? '✕' : '✓'}</span>
-                <span>${message}</span>
-            `;
+            toast.className = 'toast';
+            toast.innerHTML = `<span>${message}</span>`;
             document.body.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translate(-50%, -20px)';
-                setTimeout(() => toast.remove(), 500);
-            }, 4000);
+            setTimeout(() => toast.remove(), 4000);
         }
 
-        // ── Role Logic ──
         function handleRoleChange(select) {
             const row = document.getElementById('batch-row');
             const label = document.getElementById('batch-label-text');
             const input = document.getElementById('batch');
-
             if (!row) return;
 
-            if (select.value === 'student') {
+            if (select.value === 'student' || select.value === 'faculty') {
                 row.classList.add('visible');
-                label.textContent = 'Batch Year';
-                input.placeholder = 'e.g. 2024';
-                input.required = true;
-            } else if (select.value === 'faculty') {
-                row.classList.add('visible');
-                label.textContent = 'Joining Year';
-                input.placeholder = 'e.g. 2018';
+                label.textContent = select.value === 'student' ? 'Batch Year' : 'Joining Year';
                 input.required = true;
             } else {
                 row.classList.remove('visible');
@@ -307,7 +256,6 @@
             }
         }
 
-        // ── Auth Logic ──
         async function handleAuth(e, type) {
             e.preventDefault();
             const form = e.target;
@@ -315,15 +263,13 @@
             const originalText = btn.textContent;
             
             btn.disabled = true;
-            btn.textContent = 'Signing in...';
+            btn.textContent = 'AUTHENTICATING...';
             btn.style.opacity = '0.6';
 
-            const fd = new FormData(form);
-            const body = Object.fromEntries(fd.entries());
-
             try {
-                const url = type === 'login' ? '/auth/login' : '/auth/signup';
-                const res = await fetch(url, {
+                const fd = new FormData(form);
+                const body = Object.fromEntries(fd.entries());
+                const res = await fetch(type === 'login' ? '/auth/login' : '/auth/signup', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(body),
@@ -331,17 +277,16 @@
                 const data = await res.json();
 
                 if (res.ok) {
-                    if (type === 'login') {
-                        window.location.href = data.redirect || '/';
-                    } else {
-                        showToast('success', 'Account created! Switching to login...');
-                        setTimeout(() => switchTab('login'), 1500);
+                    if (type === 'login') window.location.href = data.redirect || '/';
+                    else {
+                        showToast('ACCOUNT CREATED');
+                        setTimeout(() => switchTab('login'), 1200);
                     }
                 } else {
-                    showToast('error', data.message || data.error || 'Authorization failed');
+                    showToast(data.message || data.error || 'ERROR');
                 }
             } catch (err) {
-                showToast('error', 'Unable to reach the server.');
+                showToast('UNREACHABLE');
             } finally {
                 btn.disabled = false;
                 btn.textContent = originalText;
@@ -349,71 +294,63 @@
             }
         }
 
-        // ── Render Logic ──
         function renderForm() {
             const container = document.getElementById('form-content');
-            container.style.transition = 'all 0.4s ease';
-            
             if (currentTab === 'login') {
                 container.innerHTML = `
                     <form onsubmit="handleAuth(event, 'login')">
                         <div class="input-group">
-                            <label class="input-label">Username / Email</label>
-                            <input type="email" name="email" required placeholder="your.name@college.edu" class="field" autocomplete="email">
+                            <label class="input-label">Username</label>
+                            <input type="email" name="email" required placeholder="name@college.edu" class="field">
                         </div>
                         <div class="input-group">
                             <label class="input-label">Password</label>
-                            <input type="password" name="password" required placeholder="••••••••" class="field" autocomplete="current-password">
+                            <input type="password" name="password" required placeholder="••••••••" class="field">
                         </div>
-                        <button type="submit" class="btn-action">Sign In</button>
+                        <button type="submit" class="btn-action">SIGN IN</button>
                     </form>
                 `;
             } else {
                 container.innerHTML = `
                     <form onsubmit="handleAuth(event, 'signup')">
                         <div class="input-group">
-                            <label class="input-label">Full Name</label>
-                            <input type="text" name="name" required placeholder="John Doe" class="field">
+                            <label class="input-label">Name</label>
+                            <input type="text" name="name" required placeholder="Full Name" class="field">
                         </div>
                         <div class="input-group">
-                            <label class="input-label">College Email</label>
-                            <input type="email" name="email" required placeholder="college-id@edu.com" class="field">
+                            <label class="input-label">Email</label>
+                            <input type="email" name="email" required placeholder="id@college.edu" class="field">
                         </div>
-                        <div class="input-group">
-                            <label class="input-label">Role</label>
-                            <select name="user_type" required class="field" onchange="handleRoleChange(this)">
-                                <option value="" disabled selected>Select Role</option>
-                                <option value="student">Student</option>
-                                <option value="faculty">Faculty</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label class="input-label">Department</label>
-                            <select name="department" required class="field">
-                                <option value="" disabled selected>Select Department</option>
-                                <option value="CSE">Computer Science</option>
-                                <option value="ECE">Electronics</option>
-                                <option value="EEE">Electrical</option>
-                                <option value="MECH">Mechanical</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="IT">Information Technology</option>
-                            </select>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="input-group">
+                                <label class="input-label">Role</label>
+                                <select name="user_type" required class="field" onchange="handleRoleChange(this)">
+                                    <option value="" disabled selected>Role</option>
+                                    <option value="student">Student</option>
+                                    <option value="faculty">Faculty</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label class="input-label">Dept</label>
+                                <select name="department" required class="field">
+                                    <option value="" disabled selected>Dept</option>
+                                    <option value="CSE">CSE</option><option value="ECE">ECE</option><option value="ME">ME</option>
+                                </select>
+                            </div>
                         </div>
                         <div id="batch-row" class="batch-row">
                             <label class="input-label" id="batch-label-text">Year</label>
                             <input type="text" id="batch" name="batch" pattern="[0-9]{4}" maxlength="4" placeholder="2024" class="field">
                         </div>
                         <div class="input-group">
-                            <label class="input-label">Set Password</label>
-                            <input type="password" name="password" required placeholder="Min. 8 characters" class="field" autocomplete="new-password">
+                            <label class="input-label">Password</label>
+                            <input type="password" name="password" required placeholder="Min. 8 characters" class="field">
                         </div>
-                        <button type="submit" class="btn-action">Create Account</button>
+                        <button type="submit" class="btn-action">CREATE ACCOUNT</button>
                     </form>
                 `;
             }
         }
-
-        // Initialize
         renderForm();
     </script>
 </body>
