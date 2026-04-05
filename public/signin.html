@@ -8,93 +8,89 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
-        :root {
-            --dark-teal: #031b1a;
-            --obsidian: #0a0a0a;
-        }
-
         * { font-family: 'Plus Jakarta Sans', sans-serif; }
 
         body {
-            margin: 0;
-            background-color: var(--obsidian);
+            /* Lighter Gradient (No Black) */
+            background: radial-gradient(circle at top left, #1e1b4b 0%, #0f172a 40%, #1e1b4b 100%);
             color: #fff;
-            min-height: 100vh;
+            margin: 0;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            overflow-x: hidden;
-            /* Drastic Vertical Spacing Fix (8rem / 128px) */
-            padding-top: 8rem;
-            padding-bottom: 6rem;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden; /* No scrolling */
         }
 
-        /* ── Smooth Designer Background ── */
-        .bg-canvas {
+        /* ── Dotted Grid Background ── */
+        .bg-dots {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -2;
-            background: radial-gradient(circle at 50% 0%, var(--dark-teal) 0%, var(--obsidian) 80%);
-        }
-
-        /* ── Refined Grain Texture ── */
-        .bg-grain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            opacity: 0.12;
+            inset: 0;
             pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            z-index: -1;
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 0);
+            background-size: 24px 24px;
         }
+
+        /* ── Colorful Ambient Orbs (Refined for lighter BG) ── */
+        .orb {
+            position: fixed;
+            width: 60vh;
+            height: 60vh;
+            border-radius: 50%;
+            filter: blur(160px);
+            opacity: 0.12;
+            z-index: -2;
+            pointer-events: none;
+        }
+        .orb-indigo { background: #6366f1; top: -10%; left: -5%; }
+        .orb-teal { background: #2dd4bf; bottom: 10%; right: -5%; }
+        .orb-orange { background: #f97316; top: 30%; right: 15%; opacity: 0.05; }
 
         /* ── Glass Container ─────────────────────────────────────────────── */
         .glass-container {
-            background: rgba(15, 15, 15, 0.7);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(15, 23, 42, 0.5); /* Matching navy/indigo base */
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 2rem;
             width: 100%;
-            max-width: 420px;
-            padding: 3rem 2.5rem;
-            box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+            max-width: 400px; /* Fixed size as requested */
+            padding: 2.5rem 2.25rem;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
             position: relative;
             z-index: 10;
+            animation: cardIn 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
         }
 
-        /* ── Segmented Tabs ── */
+        /* ── Tabs ── */
         .tabs {
             display: flex;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 5px;
-            border-radius: 1.1rem;
-            margin-bottom: 2.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 4px;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .tab-btn {
             flex: 1;
-            padding: 11px;
-            border-radius: 0.85rem;
-            font-size: 13px;
-            font-weight: 700;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            color: rgba(255, 255, 255, 0.3);
+            padding: 10px;
+            border-radius: 0.8rem;
+            font-size: 11px;
+            font-weight: 800;
+            transition: all 0.3s;
+            color: rgba(255, 255, 255, 0.25);
             cursor: pointer;
             text-align: center;
         }
         .tab-btn.active {
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.08);
             color: #fff;
         }
 
         /* ── Inputs ── */
-        .input-group { margin-bottom: 1.5rem; }
+        .input-group { margin-bottom: 1.25rem; }
         .input-label {
             display: block;
             font-size: 10px;
@@ -102,117 +98,106 @@
             color: rgba(255, 255, 255, 0.25);
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             margin-left: 4px;
         }
         .field {
             width: 100%;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.03);
             border: 1.5px solid rgba(255, 255, 255, 0.06);
-            border-radius: 0.85rem;
-            padding: 16px 20px;
+            border-radius: 0.8rem;
+            padding: 14px 18px;
             color: #fff;
-            font-size: 15px;
+            font-size: 14px;
             transition: all 0.3s;
             outline: none;
         }
         .field:focus {
-            background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
         }
-        .field::placeholder { color: rgba(255, 255, 255, 0.12); }
+        .field::placeholder { color: rgba(255, 255, 255, 0.1); }
 
-        /* ── High-Contrast Action Button ── */
+        /* ── Button ── */
         .btn-action {
             width: 100%;
             background: #fff;
             color: #000;
-            padding: 16px;
-            border-radius: 1rem;
+            padding: 14px;
+            border-radius: 0.85rem;
             font-weight: 800;
-            font-size: 16px;
+            font-size: 15px;
             transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-            margin-top: 1rem;
+            margin-top: 0.75rem;
             border: none;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
         }
         .btn-action:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.1);
         }
-        .btn-action:active { transform: translateY(0); }
 
-        /* ── Brand Header ── */
         .brand-header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 2.25rem;
             animation: fadeIn 0.8s ease-out forwards;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes cardIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         .batch-row { overflow: hidden; transition: all 0.4s; max-height: 0; opacity: 0; }
-        .batch-row.visible { max-height: 120px; opacity: 1; margin-bottom: 1.5rem; }
+        .batch-row.visible { max-height: 100px; opacity: 1; margin-bottom: 1.25rem; }
 
-        /* ── Toast ── */
         .toast {
             position: fixed;
-            top: 40px;
+            top: 30px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 1000;
-            padding: 14px 28px;
-            border-radius: 12px;
-            background: #111;
+            z-index: 10000;
+            padding: 12px 24px;
+            border-radius: 10px;
+            background: #1e1b4b;
             border: 1px solid rgba(255,255,255,0.1);
             color: #fff;
             font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             animation: slideIn 0.5s;
         }
-        @keyframes slideIn { from { top: -40px; opacity: 0; } to { top: 40px; opacity: 1; } }
+        @keyframes slideIn { from { top: -40px; opacity: 0; } to { top: 30px; opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div class="bg-canvas"></div>
-    <div class="bg-grain"></div>
+    <div class="bg-dots"></div>
+    <div class="orb orb-indigo"></div>
+    <div class="orb orb-teal"></div>
+    <div class="orb orb-orange"></div>
 
-    <div class="flex flex-col items-center w-full px-8">
-        <!-- Optimized Header -->
+    <div class="flex flex-col items-center w-full px-8 max-w-xl mx-auto">
         <div class="brand-header">
-            <div class="inline-flex items-center justify-center w-14 h-14 bg-zinc-900 rounded-2xl mb-6 border border-white/10 shadow-2xl">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div class="inline-flex items-center justify-center w-12 h-12 bg-indigo-950 rounded-xl mb-4 border border-indigo-500/20 shadow-2xl">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7 8L3 12L7 16M17 8L21 12L17 16M14 4L10 20" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
-            <h1 class="text-4xl font-extrabold tracking-tighter mb-3 text-white uppercase flex items-center justify-center gap-2">
-                Form<span class="text-emerald-400">Flow</span>
+            <h1 class="text-3xl font-extrabold tracking-tighter mb-1 text-white uppercase flex items-center justify-center gap-2">
+                Form<span class="text-indigo-400">Flow</span>
             </h1>
-            <p class="text-white/30 text-[10px] font-black tracking-[0.3em] uppercase max-w-xs mx-auto leading-relaxed">
-                Effortless form creation and analytics for the modern campus.
+            <p class="text-white/30 text-[10px] font-black tracking-[0.2em] uppercase text-center">
+                Seamless campus form creation.
             </p>
         </div>
 
-        <!-- Glass container -->
-        <div class="glass-container" style="animation: fadeIn 0.8s ease-out forwards; animation-delay: 0.1s; opacity: 0;">
+        <div class="glass-container">
             <div class="tabs" id="tabs-container">
                 <div class="tab-btn active" id="login-tab" onclick="switchTab('login')">SIGN IN</div>
                 <div class="tab-btn" id="signup-tab" onclick="switchTab('signup')">CREATE ACCOUNT</div>
             </div>
 
             <div id="form-content"></div>
-        </div>
-
-        <!-- Footer -->
-        <div class="mt-24 text-center opacity-20" style="animation: fadeIn 0.8s ease-out forwards; animation-delay: 0.2s; opacity: 0;">
-            <p class="text-[9px] font-black tracking-[0.5em] uppercase">© MMXXIV • DESIGNED BY S. BASU</p>
         </div>
     </div>
 
@@ -235,7 +220,10 @@
             toast.className = 'toast';
             toast.innerHTML = `<span>${message}</span>`;
             document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 4000);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
         }
 
         function handleRoleChange(select) {
@@ -281,10 +269,10 @@
                         setTimeout(() => switchTab('login'), 1200);
                     }
                 } else {
-                    showToast(data.message || data.error || 'ERROR');
+                    showToast(data.message || data.error || 'FAILED');
                 }
             } catch (err) {
-                showToast('UNREACHABLE');
+                showToast('CONNECTION LOST');
             } finally {
                 btn.disabled = false;
                 btn.textContent = originalText;
@@ -296,7 +284,7 @@
             const container = document.getElementById('form-content');
             if (currentTab === 'login') {
                 container.innerHTML = `
-                    <form onsubmit="handleAuth(event, 'login')">
+                    <form onsubmit="handleAuth(event, 'login')" style="animation: fadeIn 0.4s ease-out forwards;">
                         <div class="input-group">
                             <label class="input-label">Username</label>
                             <input type="email" name="email" required placeholder="name@college.edu" class="field">
@@ -310,13 +298,13 @@
                 `;
             } else {
                 container.innerHTML = `
-                    <form onsubmit="handleAuth(event, 'signup')">
+                    <form onsubmit="handleAuth(event, 'signup')" style="animation: fadeIn 0.4s ease-out forwards;">
                         <div class="input-group">
                             <label class="input-label">Identity</label>
                             <input type="text" name="name" required placeholder="Full Name" class="field">
                         </div>
                         <div class="input-group">
-                            <label class="input-label">Mail</label>
+                            <label class="input-label">College Mail</label>
                             <input type="email" name="email" required placeholder="id@college.edu" class="field">
                         </div>
                         <div class="grid grid-cols-2 gap-4">
@@ -341,7 +329,7 @@
                             <input type="text" id="batch" name="batch" pattern="[0-9]{4}" maxlength="4" placeholder="2024" class="field">
                         </div>
                         <div class="input-group">
-                            <label class="input-label">Secret</label>
+                            <label class="input-label">Password</label>
                             <input type="password" name="password" required placeholder="Min. 8 characters" class="field">
                         </div>
                         <button type="submit" class="btn-action">CREATE ACCOUNT</button>
