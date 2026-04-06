@@ -43,6 +43,7 @@ A Google Forms replica built specifically for college instructors and students. 
 | **Frontend** | HTML5, CSS3, Vanilla JavaScript, Tailwind CSS |
 | **Database** | Oracle SQL (XEPDB1) with PL/SQL |
 | **Server** | Express.js (v5.2.1) |
+| **Auth** | JWT (`jsonwebtoken`) + `bcryptjs` |
 | **ORM/Driver** | oracledb (v6.10.0) |
 
 ## 📋 Prerequisites
@@ -79,9 +80,10 @@ DB_PORT=1521
 DB_SERVICE=XEPDB1
 NODE_ENV=development
 PORT=8000
+JWT_SECRET=your_strong_random_secret_here
 ```
 
-> **⚠️ Important:** Never commit `.env` to Git. It's already in `.gitignore`.
+> **⚠️ Important:** Never commit `.env` to Git. It's already in `.gitignore`. The `JWT_SECRET` must be a long, random string — it signs all authentication tokens.
 
 ### 4. Create Database Schema
 
@@ -101,7 +103,15 @@ This creates:
 - **7 pre-loaded form templates** (JSON-based)
 - **Sample data** (2 users, 2 forms, questions, responses)
 
-### 5. Start the Server
+### 5. (Optional) Migrate Existing Passwords
+
+If you have existing users with plain-text passwords in the database, run the one-time migration script to hash them without resetting accounts:
+
+```bash
+node --env-file=.env migrate_passwords.js
+```
+
+### 6. Start the Server
 
 **Development (with auto-reload):**
 ```bash
@@ -122,21 +132,25 @@ formflow/
 ├── public/
 │   ├── signin.html           # Login page (glass-morphism UI)
 │   ├── dashboard.html        # Main instructor dashboard
+│   ├── auth-helper.js        # Client-side JWT storage & auth header utility
 │   ├── newForm.js            # Create/edit forms + template selection
 │   ├── myForms.js            # Instructor's form list + management
 │   ├── fillForm.js           # Student form-filling interface
 │   ├── myResponses.html      # Student view their responses
 │   └── audit.js              # Audit log viewer
 ├── routes/
-│   ├── auth.js               # Login/signup endpoints
-│   ├── forms.js              # Form CRUD + template endpoints
-│   └── responses.js          # Response submission + retrieval
+│   ├── auth.js               # Login/signup/me/change-password endpoints
+│   ├── forms.js              # Form CRUD + template endpoints (JWT-protected)
+│   └── responses.js          # Response submission + retrieval (JWT-protected)
+├── middleware/
+│   └── auth.js               # requireAuth JWT verification middleware
 ├── db.js                     # Oracle connection manager
 ├── server.js                 # Express app entry point
 ├── package.json              # Dependencies + scripts
 ├── project_db.sql            # Full database schema + data
+├── migrate_passwords.js      # One-time password hashing migration script
 ├── tmp_db_update.js          # Migration script (run once)
-├── .env                      # Database credentials (NEVER commit)
+├── .env                      # Database credentials + JWT secret (NEVER commit)
 ├── .gitignore                # Git ignore rules
 └── README.md                 # This file
 ```
@@ -147,10 +161,17 @@ formflow/
 
 - `POST /auth/login` — User login
   - Body: `{ email, password }`
-  - Response: `{ ok: true, redirect: "/dashboard.html?user_id=X" }`
+  - Response: `{ ok: true, token: "<jwt>", redirect: "/dashboard.html" }`
 
 - `POST /auth/signup` — User registration
   - Body: `{ name, email, password, user_type (student|faculty), department, batch? }`
+
+- `GET /auth/me` — Get current user info *(requires JWT)*
+
+- `POST /auth/change-password` — Change own password *(requires JWT)*
+  - Body: `{ current_password, new_password }`
+
+> **All protected endpoints require the header:** `Authorization: Bearer <token>`
 
 ### Forms
 
@@ -235,13 +256,25 @@ formflow/
 - Progress indicator
 - Submit confirmation
 
-## 🔐 Security Notes
+## 🔐 Security
 
-1. **Database Credentials** — Use `.env`, never hardcode
-2. **Password Storage** — Currently plain text (⚠️ upgrade to bcrypt for production)
-3. **Input Validation** — Sanitize all Oracle bind parameters
-4. **CORS** — Enabled globally (restrict in production)
-5. **Audit Logs** — Track all create/submit actions
+### ✅ Implemented
+
+1. **Password Hashing** — Passwords are hashed with `bcryptjs` (cost factor 12) on signup and verified with `bcrypt.compare()` on login. Plain-text passwords are never stored.
+2. **JWT Authentication** — A signed JWT (`userId` + `userType`, 8h expiry) is issued on login and must be sent as a Bearer token on all protected requests.
+3. **Auth Middleware** — `middleware/auth.js` verifies the JWT and injects `req.user` on every protected route. The client never supplies a `user_id` directly.
+4. **IDOR Protection** — All routes in `forms.js` and `responses.js` derive ownership from the verified JWT (`req.user.id`), not from any client-supplied parameter.
+5. **Database Credentials** — Stored in `.env`, never hardcoded. `.env` is gitignored.
+6. **Input Validation** — All Oracle queries use bind parameters to prevent SQL injection.
+7. **Audit Logs** — Track all create/submit actions.
+8. **Password Migration** — `migrate_passwords.js` available to hash any legacy plain-text passwords without resetting accounts.
+
+### ⚠️ Pending / To Improve
+
+- **Security Headers** — `helmet` not yet added; headers like `Content-Security-Policy` and `X-Frame-Options` are missing.
+- **Rate Limiting** — `express-rate-limit` not yet added; login/signup endpoints are still vulnerable to brute-force.
+- **HttpOnly Cookies** — Token is currently stored client-side in JS; switching to HttpOnly cookies would protect against XSS token theft.
+- **CORS** — Enabled globally with no origin restriction; should be locked to known origins in production.
 
 ## 🚦 Running the App
 
@@ -294,10 +327,18 @@ kill -9 <PID>
 - Verify all required questions are answered
 - Check `audit_logs` table for errors
 
+### "Invalid or expired token"
+- JWT expires after 8 hours — log in again for a fresh token
+- Ensure `JWT_SECRET` in `.env` is set and hasn't changed between server restarts
+
 ## 📈 Future Enhancements
 
-- [ ] Bcrypt password hashing
-- [ ] JWT authentication with refresh tokens
+- [x] Bcrypt password hashing
+- [x] JWT authentication
+- [ ] JWT refresh tokens
+- [ ] `helmet` security headers
+- [ ] Rate limiting on auth endpoints (`express-rate-limit`)
+- [ ] HttpOnly Cookie token storage
 - [ ] Conditional branching (skip logic)
 - [ ] Email notifications on new responses
 - [ ] Advanced analytics charts (Chart.js/D3.js)
