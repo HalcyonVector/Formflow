@@ -355,13 +355,19 @@ kill -9 <PID>
 
 ## ‍ Author
 
-**Vector**  
+**Sagnik**  
 GitHub: [@HalcyonVector](https://github.com/HalcyonVector)  
 
 ## Support
 
 Found a bug or have a feature request?  
 [Open an issue](https://github.com/HalcyonVector/Formflow/issues) on GitHub.
+
+---
+
+## License
+
+No license specified yet. Contact the author for usage rights.
 
 ---
 
