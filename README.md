@@ -1,13 +1,17 @@
-# FormFlow — Google Forms Replica for College
+# FormFlow: Google Forms Replica for College
 
 A Google Forms replica built specifically for college instructors and students. Create, distribute, and analyze forms with advanced features like form templates, role-based access, deadline management, and comprehensive response analytics.
 
-## 🎯 Features
+> **What it's for:** let instructors create, share and analyze forms for their classes, and let students fill them in, with templates, deadlines and response analytics.
+
+![Sign-in page: FormFlow, College Forms Reimagined](docs/screenshots/signin.png)
+
+## Features
 
 ### For Faculty/Instructors
-- **Create Custom Forms** — Build surveys, quizzes, feedback forms, and questionnaires
-- **Multiple Question Types** — Text, textarea, number, email, date, and multiple-choice (MCQ)
-- **Form Templates** — Quick-start with 7 pre-built templates:
+- **Create Custom Forms**: Build surveys, quizzes, feedback forms, and questionnaires
+- **Multiple Question Types**: Text, textarea, number, email, date, and multiple-choice (MCQ)
+- **Form Templates**: Quick-start with 7 pre-built templates:
   - Event Registration
   - Course Evaluation
   - Faculty Feedback Form
@@ -15,27 +19,27 @@ A Google Forms replica built specifically for college instructors and students. 
   - Leave Application
   - Lab Feedback
   - Doubt/Query Submission
-- **Access Control** — Public forms or department-specific group forms
-- **Deadline Management** — Set response deadlines and auto-close expired forms
-- **Response Management** — View, filter, and download responses in real-time
-- **Report Release** — Control when students can see form results
-- **Theme Customization** — Choose theme colors for forms
-- **Response Restrictions** — Allow single or multiple responses per student
+- **Access Control**: Public forms or department-specific group forms
+- **Deadline Management**: Set response deadlines and auto-close expired forms
+- **Response Management**: View, filter, and download responses in real-time
+- **Report Release**: Control when students can see form results
+- **Theme Customization**: Choose theme colors for forms
+- **Response Restrictions**: Allow single or multiple responses per student
 
 ### For Students
-- **Easy Form Access** — Access forms via unique form codes
-- **Fill & Submit** — Intuitive interface for completing forms
-- **Multi-question Support** — Answer various question types seamlessly
-- **Submission Confirmation** — Get confirmation after submission
-- **View Results** — See form results when instructor releases reports
+- **Easy Form Access**: Access forms via unique form codes
+- **Fill & Submit**: Intuitive interface for completing forms
+- **Multi-question Support**: Answer various question types seamlessly
+- **Submission Confirmation**: Get confirmation after submission
+- **View Results**: See form results when instructor releases reports
 
 ### Technical Highlights
-- **Oracle Database** — Enterprise-grade SQL backend
-- **Advanced Triggers & Procedures** — PL/SQL automation for deadline validation and response tracking
-- **Audit Logging** — Track form creation and response submissions
-- **JSON Templates** — Efficient template storage using CLOB
+- **Oracle Database**: Enterprise-grade SQL backend
+- **Advanced Triggers & Procedures**: PL/SQL automation for deadline validation and response tracking
+- **Audit Logging**: Track form creation and response submissions
+- **JSON Templates**: Efficient template storage using CLOB
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Component | Technology |
 |-----------|-----------|
@@ -46,20 +50,20 @@ A Google Forms replica built specifically for college instructors and students. 
 | **Auth** | JWT (`jsonwebtoken`) + `bcryptjs` |
 | **ORM/Driver** | oracledb (v6.10.0) |
 
-## 📋 Prerequisites
+## Prerequisites
 
 - [Node.js](https://nodejs.org/) v16+ (uses `--env-file` flag)
 - [npm](https://www.npmjs.com/) v8+
 - [Oracle Database](https://www.oracle.com/database/) (XE, Enterprise, or compatible)
 - Git
 
-## 🚀 Installation & Setup
+## Installation & Setup
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/sagnik0606-ux/formflow.git
-cd formflow
+git clone https://github.com/HalcyonVector/Formflow.git
+cd Formflow
 ```
 
 ### 2. Install Dependencies
@@ -83,7 +87,7 @@ PORT=8000
 JWT_SECRET=your_strong_random_secret_here
 ```
 
-> **⚠️ Important:** Never commit `.env` to Git. It's already in `.gitignore`. The `JWT_SECRET` must be a long, random string — it signs all authentication tokens.
+> **Important:** Never commit `.env` to Git. It's already in `.gitignore`. The `JWT_SECRET` must be a long, random string, it signs all authentication tokens.
 
 ### 4. Create Database Schema
 
@@ -125,7 +129,7 @@ npm start
 
 Server runs at **`http://localhost:8000`**
 
-## 📚 Project Structure
+## Project Structure
 
 ```
 formflow/
@@ -155,57 +159,57 @@ formflow/
 └── README.md                 # This file
 ```
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### Authentication
 
-- `POST /auth/login` — User login
+- `POST /auth/login`: User login
   - Body: `{ email, password }`
   - Response: `{ ok: true, token: "<jwt>", redirect: "/dashboard.html" }`
 
-- `POST /auth/signup` — User registration
+- `POST /auth/signup`: User registration
   - Body: `{ name, email, password, user_type (student|faculty), department, batch? }`
 
-- `GET /auth/me` — Get current user info *(requires JWT)*
+- `GET /auth/me`: Get current user info *(requires JWT)*
 
-- `POST /auth/change-password` — Change own password *(requires JWT)*
+- `POST /auth/change-password`: Change own password *(requires JWT)*
   - Body: `{ current_password, new_password }`
 
 > **All protected endpoints require the header:** `Authorization: Bearer <token>`
 
 ### Forms
 
-- `POST /forms/create` — Create new form
+- `POST /forms/create`: Create new form
   - Body: `{ title, description, access_type, target_dept?, deadline, theme_color? }`
   - Response: `{ form_id, form_code }`
 
-- `GET /forms/all` — Get all user's forms
+- `GET /forms/all`: Get all user's forms
   - Returns: Form list with response counts
 
-- `GET /forms/:formId` — Get form details + questions
+- `GET /forms/:formId`: Get form details + questions
   - Returns: Form + questions + options
 
-- `PUT /forms/:formId` — Update form details
+- `PUT /forms/:formId`: Update form details
 
-- `DELETE /forms/:formId` — Delete form
+- `DELETE /forms/:formId`: Delete form
 
-- `GET /forms/by-code/:code` — Get form by unique code (student access)
+- `GET /forms/by-code/:code`: Get form by unique code (student access)
 
-- `GET /forms/templates` — Get all form templates
+- `GET /forms/templates`: Get all form templates
 
-- `POST /forms/from-template` — Create form from template
+- `POST /forms/from-template`: Create form from template
 
 ### Responses
 
-- `POST /responses/submit` — Submit form response
+- `POST /responses/submit`: Submit form response
   - Body: `{ form_id, answers: [{ question_id, answer_text|answer_number|option_id }] }`
 
-- `GET /responses/form/:formId` — Get all responses to a form (instructor only)
+- `GET /responses/form/:formId`: Get all responses to a form (instructor only)
   - Returns: Aggregate stats + individual responses
 
-- `GET /responses/user/:userId` — Get responses submitted by user (student view)
+- `GET /responses/user/:userId`: Get responses submitted by user (student view)
 
-## 🗄️ Database Schema Overview
+## Database Schema Overview
 
 ### Tables
 | Table | Purpose |
@@ -224,7 +228,7 @@ formflow/
 - Responses blocked on expired/closed forms (trigger: `trg_prevent_invalid_response`)
 - Auto-populate response counts via function: `fn_get_response_count()`
 
-## 🎨 Frontend Features
+## Frontend Features
 
 ### Glass-Morphism UI
 - Modern frosted glass design using Tailwind CSS
@@ -256,27 +260,27 @@ formflow/
 - Progress indicator
 - Submit confirmation
 
-## 🔐 Security
+## Security
 
-### ✅ Implemented
+### Implemented
 
-1. **Password Hashing** — Passwords are hashed with `bcryptjs` (cost factor 12) on signup and verified with `bcrypt.compare()` on login. Plain-text passwords are never stored.
-2. **JWT Authentication** — A signed JWT (`userId` + `userType`, 8h expiry) is issued on login and must be sent as a Bearer token on all protected requests.
-3. **Auth Middleware** — `middleware/auth.js` verifies the JWT and injects `req.user` on every protected route. The client never supplies a `user_id` directly.
-4. **IDOR Protection** — All routes in `forms.js` and `responses.js` derive ownership from the verified JWT (`req.user.id`), not from any client-supplied parameter.
-5. **Database Credentials** — Stored in `.env`, never hardcoded. `.env` is gitignored.
-6. **Input Validation** — All Oracle queries use bind parameters to prevent SQL injection.
-7. **Audit Logs** — Track all create/submit actions.
-8. **Password Migration** — `migrate_passwords.js` available to hash any legacy plain-text passwords without resetting accounts.
+1. **Password Hashing**: Passwords are hashed with `bcryptjs` (cost factor 12) on signup and verified with `bcrypt.compare()` on login. Plain-text passwords are never stored.
+2. **JWT Authentication**: A signed JWT (`userId` + `userType`, 8h expiry) is issued on login and must be sent as a Bearer token on all protected requests.
+3. **Auth Middleware**: `middleware/auth.js` verifies the JWT and injects `req.user` on every protected route. The client never supplies a `user_id` directly.
+4. **IDOR Protection**: All routes in `forms.js` and `responses.js` derive ownership from the verified JWT (`req.user.id`), not from any client-supplied parameter.
+5. **Database Credentials**: Stored in `.env`, never hardcoded. `.env` is gitignored.
+6. **Input Validation**: All Oracle queries use bind parameters to prevent SQL injection.
+7. **Audit Logs**: Track all create/submit actions.
+8. **Password Migration**: `migrate_passwords.js` available to hash any legacy plain-text passwords without resetting accounts.
 
-### ⚠️ Pending / To Improve
+### Pending / To Improve
 
-- **Security Headers** — `helmet` not yet added; headers like `Content-Security-Policy` and `X-Frame-Options` are missing.
-- **Rate Limiting** — `express-rate-limit` not yet added; login/signup endpoints are still vulnerable to brute-force.
-- **HttpOnly Cookies** — Token is currently stored client-side in JS; switching to HttpOnly cookies would protect against XSS token theft.
-- **CORS** — Enabled globally with no origin restriction; should be locked to known origins in production.
+- **Security Headers**: `helmet` not yet added; headers like `Content-Security-Policy` and `X-Frame-Options` are missing.
+- **Rate Limiting**: `express-rate-limit` not yet added; login/signup endpoints are still vulnerable to brute-force.
+- **HttpOnly Cookies**: Token is currently stored client-side in JS; switching to HttpOnly cookies would protect against XSS token theft.
+- **CORS**: Enabled globally with no origin restriction; should be locked to known origins in production.
 
-## 🚦 Running the App
+## Running the App
 
 ### Development
 ```bash
@@ -295,7 +299,7 @@ After running `project_db.sql`:
 - **Student Account:** email Dr. Bob Smith (password: hashedpw456)
 - **Sample Forms:** "Midsem Feedback" (Form ID: 1), "CS Dept Survey" (Form ID: 2)
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### "Cannot connect to database"
 ```bash
@@ -328,10 +332,10 @@ kill -9 <PID>
 - Check `audit_logs` table for errors
 
 ### "Invalid or expired token"
-- JWT expires after 8 hours — log in again for a fresh token
+- JWT expires after 8 hours, log in again for a fresh token
 - Ensure `JWT_SECRET` in `.env` is set and hasn't changed between server restarts
 
-## 📈 Future Enhancements
+## Future Enhancements
 
 - [x] Bcrypt password hashing
 - [x] JWT authentication
@@ -349,16 +353,16 @@ kill -9 <PID>
 - [ ] Real-time collaboration (WebSockets)
 - [ ] Mobile app (React Native)
 
-## 👨‍💻 Author
+## ‍ Author
 
 **Vector**  
 GitHub: [@HalcyonVector](https://github.com/HalcyonVector)  
 
-## 🙋 Support
+## Support
 
 Found a bug or have a feature request?  
-[Open an issue](https://github.com/HalcyonVector/formflow/issues) on GitHub.
+[Open an issue](https://github.com/HalcyonVector/Formflow/issues) on GitHub.
 
 ---
 
-**Made with ❤️ for educators and students everywhere**
+**Built for educators and students everywhere.**
